@@ -8,12 +8,12 @@ const BrowseLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar />
-      <div className='flex h-full bg-background pt-14'>
+      <main className='flex h-full bg-background pt-14'>
         <Suspense fallback={<SidebarSkeleton />}>
           <Sidebar />
         </Suspense>
         <Container>{children}</Container>
-      </div>
+      </main>
     </>
   );
 };

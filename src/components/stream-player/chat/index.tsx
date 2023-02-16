@@ -9,8 +9,6 @@ import { ConnectionState } from 'livekit-client';
 import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { ChatMessage } from '@/db/types';
-import { useChatSocket } from '@/hooks/use-chat-socket';
 import { ChatVariant, useChatSidebar } from '@/store/use-chat-sidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
@@ -30,10 +28,9 @@ import { CommunityList } from '@/components/stream-player/chat/community-list';
 
 interface ChatProps {
   viewerName: string;
-  hostName: string;
-  hostId: string;
   streamId: string;
-  messages: ChatMessage[];
+  hostId: string;
+  hostName: string;
   isFollowing: boolean;
   isChatEnabled: boolean;
   isChatDelayed: boolean;
@@ -42,20 +39,15 @@ interface ChatProps {
 
 export const Chat = ({
   viewerName,
-  hostName,
-  messages,
-  hostId,
   streamId,
+  hostId,
+  hostName,
   isFollowing,
   isChatEnabled,
   isChatDelayed,
   isChatFollowersOnly,
 }: ChatProps) => {
   const matches = useMediaQuery('(min-width: 1024px)');
-  // const chatMessages = useChat({ apiUrl: '/api/messages' });
-  console.log({ streamId });
-  const event = `stream-${streamId}`;
-  useChatSocket({ event });
 
   // Manage Sidebar State and Variant
   const { variant, isExpanded, onExpand, onCollapse } = useChatSidebar();
@@ -101,7 +93,7 @@ export const Chat = ({
       {variant === ChatVariant.CHAT ? (
         <>
           <ChatList
-            messages={messages}
+            streamId={streamId}
             isOffline={!isOnline}
             isChatDisabled={!isChatEnabled}
           />

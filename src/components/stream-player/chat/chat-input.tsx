@@ -48,7 +48,6 @@ export const ChatInput = ({
 }: ChatInputProps) => {
   const router = useRouter();
   const [isDelayBlocked, setIsDelayBlocked] = useState(false);
-  const [isPending, startTransition] = useTransition();
 
   // Disable video player actions when typing
   const { onFocus, onBlur } = useTyping();
@@ -60,46 +59,42 @@ export const ChatInput = ({
     },
   });
 
+  const isLoading = form.formState.isSubmitting;
+
   const isFollowersOnlyAndNotFollowing = isFollowersOnly && !isFollowing;
   const isDisabled =
     isHidden || isFollowersOnlyAndNotFollowing || isDelayBlocked;
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    startTransition(async () => {
-      try {
-        const url = qs.stringifyUrl({
-          url: '/api/socket/messages',
-          query: { streamId },
-        });
+  const onSubmit = async ({ message }: z.infer<typeof formSchema>) => {
+    try {
+      const url = qs.stringifyUrl({
+        url: '/api/socket/stream-messages',
+        query: { streamId },
+      });
 
-        if (isDelayed && !isDelayBlocked) {
-          // SEND MESSAGE AFTER 3 SECONDS
-          setIsDelayBlocked(true);
-          setTimeout(async () => {
-            setIsDelayBlocked(false);
-            // SERVER ACTION
-            // await sendMessage({ ...values, viewerName, streamId });
-            const response = await axios.post(url, {
-              ...values,
-              viewerName,
-            });
-          }, 3000);
-        } else {
-          // SEND MESSAGE IMMEDIATELY
-          // SERVER ACTION
-          // await sendMessage({ ...values, viewerName, streamId });
+      if (isDelayed && !isDelayBlocked) {
+        // SEND MESSAGE AFTER 3 SECONDS
+        setIsDelayBlocked(true);
+        setTimeout(async () => {
+          setIsDelayBlocked(false);
           const response = await axios.post(url, {
-            ...values,
+            message,
             viewerName,
           });
-        }
-      } catch (err: any) {
-        toast.error('Failed to send message');
-      } finally {
-        router.refresh();
-        form.reset();
+        }, 3000);
+      } else {
+        // SEND MESSAGE IMMEDIATELY
+        const response = await axios.post(url, {
+          message,
+          viewerName,
+        });
       }
-    });
+    } catch (err: any) {
+      toast.error('Failed to send message');
+    } finally {
+      router.refresh();
+      form.reset();
+    }
   };
 
   if (isHidden) return null;
@@ -121,7 +116,7 @@ export const ChatInput = ({
             <FormItem className='w-full'>
               <FormControl>
                 <Input
-                  disabled={isPending}
+                  disabled={isLoading}
                   onFocus={onFocus}
                   placeholder='Send a message'
                   className={cn(

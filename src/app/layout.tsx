@@ -7,6 +7,7 @@ import { Toaster } from 'sonner';
 import './globals.css';
 
 import { cn } from '@/lib/utils';
+import { QueryProvider } from '@/providers/query-provider';
 import { SocketProvider } from '@/providers/socket-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
 
@@ -30,8 +31,10 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <body className={cn('no-scrollbar', inter.className)}>
           <ThemeProvider defaultTheme='system'>
             <SocketProvider>
-              <Toaster richColors theme={'light'} position='bottom-right' />
-              {children}
+              <QueryProvider>
+                <Toaster richColors theme={'light'} position='bottom-right' />
+                {children}
+              </QueryProvider>
             </SocketProvider>
           </ThemeProvider>
         </body>

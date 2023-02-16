@@ -16,14 +16,12 @@ import { Video, VideoSkeleton } from '@/components/stream-player/video/video';
 interface StreamPlayerProps {
   user: User;
   stream: Stream;
-  chatMessages: ChatMessage[];
   isFollowing: boolean;
 }
 
 export const StreamPlayer = ({
   user,
   stream,
-  chatMessages,
   isFollowing,
 }: StreamPlayerProps) => {
   const { identity, name, viewerToken } = useViewerToken(user.id);
@@ -69,11 +67,10 @@ export const StreamPlayer = ({
           <StreamHeader />
         </div>
         <Chat
-          hostId={user.id}
-          streamId={stream.id}
-          hostName={user.username}
           viewerName={name}
-          messages={chatMessages}
+          streamId={stream.id}
+          hostId={user.id}
+          hostName={user.username}
           isFollowing={isFollowing}
           isChatEnabled={stream.isChatEnabled}
           isChatDelayed={stream.isChatDelayed}

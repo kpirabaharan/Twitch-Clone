@@ -1,25 +1,48 @@
-import { useSocket } from '@/providers/socket-provider';
-import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
+import { useSocket } from '@/providers/socket-provider';
+
 type ChatSocketProps = {
-  event: string;
+  addKey: string;
+  queryKey: string;
 };
 
-export const useChatSocket = ({ event }: ChatSocketProps) => {
+export const useChatSocket = ({ addKey, queryKey }: ChatSocketProps) => {
   const { socket } = useSocket();
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (!socket) return;
 
-    socket.on(event, () => {
-      console.log('Socket event received');
-      router.refresh();
+    socket.on(addKey, (newMessage: any) => {
+      queryClient.setQueryData([queryKey], (oldData: any) => {
+        if (!oldData || !oldData.pages || oldData.pages.length === 0) {
+          return {
+            pages: [
+              {
+                items: [newMessage],
+              },
+            ],
+          };
+        }
+
+        const newData = [...oldData.pages];
+
+        newData[0] = {
+          ...newData[0],
+          items: [newMessage, ...newData[0].items],
+        };
+
+        return {
+          ...oldData,
+          pages: newData,
+        };
+      });
     });
 
     return () => {
-      socket.off(event);
+      socket.off(addKey);
     };
-  }, [event, router, socket]);
+  }, [addKey, queryClient, queryKey, socket]);
 };

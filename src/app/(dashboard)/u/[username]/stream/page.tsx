@@ -13,7 +13,6 @@ interface StreamPageProps {
 const StreamPage = async ({ params }: StreamPageProps) => {
   const user = await getSelf();
   const stream = await getSelfStream();
-  const chatMessages = await getChatByStreamId(stream.id);
 
   if (!user || !stream) {
     throw new Error('Unauthorized');
@@ -21,7 +20,7 @@ const StreamPage = async ({ params }: StreamPageProps) => {
 
   return (
     <div className='relative h-full overflow-x-hidden'>
-      <StreamPlayer user={user} stream={stream} chatMessages={chatMessages} isFollowing />
+      <StreamPlayer user={user} stream={stream} isFollowing />
     </div>
   );
 };

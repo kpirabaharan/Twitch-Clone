@@ -22,6 +22,7 @@ export default async function handler(
     const { viewerName, message }: ReqBody = req.body;
     const { streamId } = req.query;
 
+    // VALIDATE REQUEST
     if (!streamId) {
       return res.status(400).json({ error: 'Stream Id missing' });
     }
