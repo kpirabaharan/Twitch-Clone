@@ -1,0 +1,27 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1705119386451,
+      "tag": "0000_slippery_tyrannus",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1705120275191,
+      "tag": "0001_bitter_mastermind",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1705120494129,
+      "tag": "0002_crazy_black_tarantula",
+      "breakpoints": true
+    }
+  ]
+}
