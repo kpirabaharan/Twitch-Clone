@@ -5,6 +5,7 @@ import { PanelLeftCloseIcon, PanelLeftOpenIcon } from 'lucide-react';
 import { useState } from 'react';
 
 import { MotionDiv } from '@/components/motion-div';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 
 export const Sidebar = () => {
@@ -45,7 +46,7 @@ export const Sidebar = () => {
 
   return (
     <MotionDiv
-      className='flex w-full flex-col items-center gap-y-2 bg-[#1f1f23] px-1 
+      className='flex w-full flex-col items-center gap-y-3 bg-[#1f1f23] px-1 
       pt-2'
       initial={'closed'}
       animate={isSidebar ? 'open' : 'closed'}
@@ -72,6 +73,29 @@ export const Sidebar = () => {
           )}
         </Button>
       </MotionDiv>
+      {[
+        'John',
+        'Jane',
+        'Michael',
+        'Emily',
+        'David',
+        'Sarah',
+        'Daniel',
+        'Olivia',
+        'Matthew',
+        'Sophia',
+      ].map((name, i) => (
+        <div
+          key={i}
+          className='flex w-full flex-row items-center gap-x-4 overflow-hidden pl-[6px]'
+        >
+          <Avatar className='h-8 w-8 cursor-pointer'>
+            <AvatarImage src={`https://github.com/${name}.png`} />
+            <AvatarFallback>{name.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <p className='text-center text-xs'>{name}</p>
+        </div>
+      ))}
     </MotionDiv>
   );
 };
