@@ -1,14 +1,11 @@
-'use client';
+import { UserButton } from '@clerk/nextjs';
 
-import { SignOutButton } from '@clerk/nextjs';
-
-const Home = () => {
+const HomePage = () => {
   return (
-    <div>
-      <h1> Sign out </h1>
-      <SignOutButton />
+    <div className='flex w-full justify-end p-4'>
+      <UserButton afterSignOutUrl='/' />
     </div>
   );
 };
 
-export default Home;
+export default HomePage;
