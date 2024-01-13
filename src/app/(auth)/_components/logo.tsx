@@ -1,6 +1,6 @@
 import { TwitchIcon } from 'lucide-react';
 
-const TwitchCloneLogo = () => {
+export const TwitchCloneLogo = () => {
   return (
     <div className='mb-4 flex flex-col items-center gap-y-4'>
       <div className='inline-flex h-16 w-16 items-center justify-center rounded-full bg-purple-200'>
@@ -10,5 +10,3 @@ const TwitchCloneLogo = () => {
     </div>
   );
 };
-
-export default TwitchCloneLogo;

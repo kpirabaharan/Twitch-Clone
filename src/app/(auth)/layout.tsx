@@ -1,6 +1,6 @@
 import { auth } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
-import TwitchCloneLogo from './_components/logo';
+import { TwitchCloneLogo } from './_components/logo';
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   const { userId } = auth();
