@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { ClerkProvider } from '@clerk/nextjs';
 
 import './globals.css';
 
@@ -13,16 +14,16 @@ export const metadata: Metadata = {
     'Create a Twitch clone with Next.js, Drizzle, Postgres, AWS, and more.',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang='en'>
-      <ThemeProvider defaultTheme='system'>
-        <body className={inter.className}>{children}</body>
-      </ThemeProvider>
-    </html>
+    <ClerkProvider>
+      <html lang='en'>
+        <ThemeProvider defaultTheme='system'>
+          <body className={inter.className}>{children}</body>
+        </ThemeProvider>
+      </html>
+    </ClerkProvider>
   );
-}
+};
+
+export default RootLayout;
