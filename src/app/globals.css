@@ -54,6 +54,9 @@ body,
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    --tertiary: 244 76% 59%; /* Added tertiary color */
+    --tertiary-foreground: 210 40% 98%; /* Added tertiary color foreground */
   }
 
   [data-theme='dark'] {
@@ -84,6 +87,9 @@ body,
     --border: 226.7 12.7% 17.5%;
     --input: 226.7 12.7% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    --tertiary: 244 76% 59%; /* Added tertiary color */
+    --tertiary-foreground: 210 40% 98%; /* Added tertiary color foreground */
   }
 }
 

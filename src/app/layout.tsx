@@ -21,7 +21,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
     <ClerkProvider
       appearance={{
         baseTheme: dark,
-        variables: { colorPrimary: '#9333ea' },
+        variables: { colorPrimary: '#4f46e5' },
       }}
     >
       <html lang='en'>
