@@ -31,14 +31,16 @@ export const Search = () => {
   const onClear = () => setValue('');
 
   return (
-    <form onSubmit={onSubmit} className='relative flex flex-row items-center'>
+    <form
+      onSubmit={onSubmit}
+      className='relative flex flex-row items-center justify-center'
+    >
       <Input
         value={value}
         onChange={e => setValue(e.target.value)}
         placeholder='Search'
-        className='rounded-r-none border-0 outline-none 
-        focus-visible:ring-0 focus-visible:ring-transparent 
-        focus-visible:ring-offset-0'
+        className='rounded-r-none border-0 pr-8 outline-none 
+        focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0'
       />
       {value && (
         <X
@@ -49,7 +51,7 @@ export const Search = () => {
       )}
       <Button
         type={'submit'}
-        className='group rounded-l-none'
+        className={`group rounded-l-none border-2 border-background ${!value && 'cursor-not-allowed'}`}
         size={'icon'}
         variant={'secondary'}
       >
