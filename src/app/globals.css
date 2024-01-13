@@ -60,7 +60,7 @@ body,
   }
 
   [data-theme='dark'] {
-    --background: 226.7 12.7% 13.9%;
+    --background: 0 0% 8%;
     --foreground: 210 40% 98%;
 
     --card: 226.7 12.7% 13.9%;

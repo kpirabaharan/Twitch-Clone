@@ -1,5 +1,5 @@
 const HomePage = () => {
-  return <div className='flex w-full justify-end p-4'></div>;
+  return <div className=''></div>;
 };
 
 export default HomePage;
