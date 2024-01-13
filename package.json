@@ -15,6 +15,7 @@
   "dependencies": {
     "@clerk/nextjs": "^4.29.3",
     "@clerk/themes": "^1.7.9",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
@@ -25,6 +26,7 @@
     "next-themes": "^0.2.1",
     "pg": "^8.11.3",
     "prettier-plugin-packagejson": "^2.4.9",
+    "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "svix": "^1.15.0",

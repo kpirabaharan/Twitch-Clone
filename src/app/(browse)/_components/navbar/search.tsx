@@ -1,19 +1,27 @@
 'use client';
 
+import { SearchIcon } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { SearchIcon } from 'lucide-react';
 
 export const Search = () => {
   return (
-    <div className='flex flex-row items-center gap-x-[2px]'>
+    <form className='flex flex-row items-center'>
       <Input
-        className='border-0 outline-none focus-visible:ring-0 
-        focus-visible:ring-transparent'
+        placeholder='Search'
+        className='rounded-r-none border-0 outline-none 
+        focus-visible:ring-0 focus-visible:ring-transparent 
+        focus-visible:ring-offset-0'
       />
-      <Button size={'icon'} variant={'secondary'}>
-        <SearchIcon />
+      <Button
+        type={'submit'}
+        className='rounded-l-none'
+        size={'icon'}
+        variant={'secondary'}
+      >
+        <SearchIcon className='h-5 w-5' />
       </Button>
-    </div>
+    </form>
   );
 };
