@@ -1,9 +1,12 @@
-const Layout = ({ children }: { children: React.ReactNode }) => {
+import TwitchCloneLogo from './_components/logo';
+
+const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='h-full w-full flex justify-center items-center'>
+    <div className='flex min-h-full w-full flex-col items-center justify-center py-12'>
+      <TwitchCloneLogo />
       {children}
     </div>
   );
 };
 
-export default Layout;
+export default AuthLayout;
