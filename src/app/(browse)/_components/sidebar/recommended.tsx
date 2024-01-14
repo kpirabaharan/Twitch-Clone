@@ -3,6 +3,7 @@
 import { Variants } from 'framer-motion';
 import { VideoIcon } from 'lucide-react';
 
+import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
 
 import { Hint } from '@/components/hint';
@@ -15,6 +16,7 @@ interface RecommendedProps {
 
 export const Recommended = ({ data }: RecommendedProps) => {
   const { isExpanded } = useSidebar();
+  const { isLargeScreen } = useScreenSize();
 
   const toggleDivVariants: Variants = {
     open: {
@@ -34,10 +36,10 @@ export const Recommended = ({ data }: RecommendedProps) => {
   return (
     <>
       <MotionDiv
-        className='flex w-[220px] flex-row items-center justify-between'
+        className='mt-2 flex w-[220px] flex-row items-center justify-between'
         initial={'closed'}
-        animate={isExpanded ? 'open' : 'closed'}
-        exit={isExpanded ? 'open' : 'closed'}
+        animate={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
+        exit={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
         variants={toggleDivVariants}
       >
         <p className='text-xs font-semibold uppercase'>Recommended Channels</p>
@@ -56,7 +58,7 @@ export const Recommended = ({ data }: RecommendedProps) => {
           )}
         </div>
       </MotionDiv>
-      <div className='flex w-full flex-col gap-y-2'>
+      <div className='mt-2 flex w-full flex-col gap-y-2'>
         {data.map((item, index) => (
           <AvatarItem key={index} item={item} />
         ))}

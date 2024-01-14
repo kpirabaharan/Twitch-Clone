@@ -7,6 +7,7 @@ import { useSidebar } from '@/store/useSidebar';
 
 import { Hint } from '@/components/hint';
 import { MotionDiv } from '@/components/motion-div';
+import { useScreenSize } from '@/store/useScreenSize';
 import { AvatarItem } from './avatar-item';
 
 interface FollowingProps {
@@ -15,6 +16,7 @@ interface FollowingProps {
 
 export const Following = ({ data }: FollowingProps) => {
   const { isExpanded } = useSidebar();
+  const { isLargeScreen } = useScreenSize();
 
   const toggleDivVariants: Variants = {
     open: {
@@ -36,8 +38,8 @@ export const Following = ({ data }: FollowingProps) => {
       <MotionDiv
         className='flex w-[220px] flex-row items-center justify-between'
         initial={'closed'}
-        animate={isExpanded ? 'open' : 'closed'}
-        exit={isExpanded ? 'open' : 'closed'}
+        animate={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
+        exit={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
         variants={toggleDivVariants}
       >
         <p className='text-xs font-semibold uppercase'>Followed Channels</p>
@@ -56,7 +58,7 @@ export const Following = ({ data }: FollowingProps) => {
           )}
         </div>
       </MotionDiv>
-      <div className='flex flex-col gap-y-2 w-full'>
+      <div className='mt-2 flex w-full flex-col gap-y-2'>
         {data.map((item, index) => (
           <AvatarItem key={index} item={item} />
         ))}
