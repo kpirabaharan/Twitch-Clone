@@ -2,6 +2,7 @@ import { Variants } from 'framer-motion';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useSidebar } from '@/store/useSidebar';
+import { AvatarHint } from './avatar-hint';
 
 interface AvatarItemProps {
   item: any;
@@ -26,12 +27,14 @@ export const AvatarItem = ({ item }: AvatarItemProps) => {
   return (
     <div
       className='relative flex h-8 w-full flex-row items-center gap-x-4 
-      overflow-hidden pl-[6px]'
+      overflow-hidden pl-[9px]'
     >
-      <Avatar className='h-8 w-8 cursor-pointer'>
-        <AvatarImage src={`https://github.com/${item}.png`} />
-        <AvatarFallback>{'F'}</AvatarFallback>
-      </Avatar>
+      <AvatarHint label='L' side='right' user={item} asChild delayDuration={500}>
+        <Avatar className='h-8 w-8 cursor-pointer'>
+          <AvatarImage src={`https://github.com/${item}.png`} />
+          <AvatarFallback>{'F'}</AvatarFallback>
+        </Avatar>
+      </AvatarHint>
       <div>
         <p
           className='overflow-hidden text-ellipsis whitespace-nowrap text-xs 
