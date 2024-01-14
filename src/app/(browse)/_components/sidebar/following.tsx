@@ -1,11 +1,12 @@
 'use client';
 
+import { Variants } from 'framer-motion';
+import { Heart } from 'lucide-react';
+
 import { Hint } from '@/components/hint';
 import { MotionDiv } from '@/components/motion-div';
 import { useSidebar } from '@/store/useSidebar';
-
-import { Variants } from 'framer-motion';
-import { Heart } from 'lucide-react';
+import { AvatarItem } from './avatar-item';
 
 interface FollowingProps {
   data: any[];
@@ -52,6 +53,9 @@ export const Following = ({ data }: FollowingProps) => {
           <Heart className='h-5 w-5' />
         )}
       </MotionDiv>
+      {data.map((item, index) => (
+        <AvatarItem key={index} item={item} />
+      ))}
     </>
   );
 };
