@@ -1,11 +1,13 @@
 'use client';
 
-import { Hint } from '@/components/hint';
-import { MotionDiv } from '@/components/motion-div';
-import { useSidebar } from '@/store/useSidebar';
-
 import { Variants } from 'framer-motion';
 import { VideoIcon } from 'lucide-react';
+
+import { useSidebar } from '@/store/useSidebar';
+
+import { Hint } from '@/components/hint';
+import { MotionDiv } from '@/components/motion-div';
+import { AvatarItem } from './avatar-item';
 
 interface RecommendedProps {
   data: any[];
@@ -32,26 +34,31 @@ export const Recommended = ({ data }: RecommendedProps) => {
   return (
     <>
       <MotionDiv
-        className='flex w-full flex-row items-center justify-between pr-[9px]'
+        className='flex w-[220px] flex-row items-center justify-between'
         initial={'closed'}
         animate={isExpanded ? 'open' : 'closed'}
         exit={isExpanded ? 'open' : 'closed'}
         variants={toggleDivVariants}
       >
         <p className='text-xs font-semibold uppercase'>Recommended Channels</p>
-        {!isExpanded ? (
-          <Hint
-            delayDuration={500}
-            label={'Recommended Channels'}
-            side='right'
-            asChild
-          >
+        <div className='inline-flex h-10 w-10 items-center justify-center'>
+          {!isExpanded ? (
+            <Hint
+              delayDuration={500}
+              label={'Recommended Channels'}
+              side='right'
+              asChild
+            >
+              <VideoIcon className='h-5 w-5' />
+            </Hint>
+          ) : (
             <VideoIcon className='h-5 w-5' />
-          </Hint>
-        ) : (
-          <VideoIcon className='h-5 w-5' />
-        )}
+          )}
+        </div>
       </MotionDiv>
+      {data.map((item, index) => (
+        <AvatarItem key={index} item={item} />
+      ))}
     </>
   );
 };

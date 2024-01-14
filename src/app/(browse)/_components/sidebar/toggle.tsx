@@ -26,7 +26,7 @@ export const Toggle = () => {
 
   return (
     <MotionDiv
-      className='hidden lg:flex w-full flex-row items-center justify-between'
+      className='hidden w-[220px] flex-row items-center justify-between lg:flex'
       initial={'closed'}
       animate={isExpanded ? 'open' : 'closed'}
       exit={isExpanded ? 'open' : 'closed'}

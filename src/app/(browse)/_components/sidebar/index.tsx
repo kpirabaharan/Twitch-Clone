@@ -18,13 +18,9 @@ export const Sidebar = () => {
 
   return (
     <Wrapper>
-      <div className='w-[220px]'>
-        <Toggle />
-        <div className='mt-2 flex w-full flex-col gap-y-4'>
-          <Following data={following} />
-          <Recommended data={recommended} />
-        </div>
-      </div>
+      <Toggle />
+      <Following data={following} />
+      <Recommended data={recommended} />
     </Wrapper>
   );
 };
