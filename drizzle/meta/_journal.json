@@ -22,6 +22,13 @@
       "when": 1705120494129,
       "tag": "0002_crazy_black_tarantula",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1705262766333,
+      "tag": "0003_daily_masque",
+      "breakpoints": true
     }
   ]
 }

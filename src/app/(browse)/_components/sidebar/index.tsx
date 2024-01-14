@@ -1,9 +1,11 @@
-import { Following } from './following';
+import { getRecommended } from '@/lib/recommended-service';
 import { Recommended } from './recommended';
 import { Toggle } from './toggle';
 import { Wrapper } from './wrapper';
 
-export const Sidebar = () => {
+export const revalidate = 0;
+
+export const Sidebar = async () => {
   const following = [
     'John',
     'Jane',
@@ -14,12 +16,14 @@ export const Sidebar = () => {
     'Daniel',
   ];
 
-  const recommended = ['Olivia', 'Matthew', 'Sophia'];
+  const recommended = await getRecommended();
+
+  console.log(recommended);
 
   return (
     <Wrapper>
       <Toggle />
-      <Following data={following} />
+      {/* <Following data={following} /> */}
       <Recommended data={recommended} />
     </Wrapper>
   );
