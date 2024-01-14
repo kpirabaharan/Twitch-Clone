@@ -1,6 +1,5 @@
 'use client';
 
-import { Variants } from 'framer-motion';
 import { VideoIcon } from 'lucide-react';
 
 import { useScreenSize } from '@/store/useScreenSize';
@@ -8,6 +7,7 @@ import { useSidebar } from '@/store/useSidebar';
 
 import { Hint } from '@/components/hint';
 import { MotionDiv } from '@/components/motion-div';
+import { toggleDivVariants } from './animations';
 import { AvatarItem } from './avatar-item';
 
 interface RecommendedProps {
@@ -17,17 +17,6 @@ interface RecommendedProps {
 export const Recommended = ({ data }: RecommendedProps) => {
   const { isExpanded } = useSidebar();
   const { isLargeScreen } = useScreenSize();
-
-  const toggleDivVariants: Variants = {
-    open: {
-      x: 0,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-    closed: {
-      x: -90,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-  };
 
   if (!data.length) {
     return null;

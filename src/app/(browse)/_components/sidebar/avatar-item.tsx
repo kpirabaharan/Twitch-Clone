@@ -1,7 +1,4 @@
-import { Variants } from 'framer-motion';
-
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useSidebar } from '@/store/useSidebar';
 import { AvatarHint } from './avatar-hint';
 
 interface AvatarItemProps {
@@ -9,21 +6,6 @@ interface AvatarItemProps {
 }
 
 export const AvatarItem = ({ item }: AvatarItemProps) => {
-  const { isExpanded } = useSidebar();
-
-  const toggleDivVariants: Variants = {
-    open: {
-      width: 220,
-      x: 0,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-    closed: {
-      width: 50,
-      x: 90,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-  };
-
   return (
     <div
       className='relative flex h-8 w-full flex-row items-center gap-x-4 

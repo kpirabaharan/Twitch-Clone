@@ -1,26 +1,16 @@
 'use client';
 
+import { PanelLeftCloseIcon, PanelLeftOpenIcon } from 'lucide-react';
+
 import { useSidebar } from '@/store/useSidebar';
 
 import { Hint } from '@/components/hint';
 import { MotionDiv } from '@/components/motion-div';
 import { Button } from '@/components/ui/button';
-import { Variants } from 'framer-motion';
-import { PanelLeftCloseIcon, PanelLeftOpenIcon } from 'lucide-react';
+import { toggleDivVariants } from './animations';
 
 export const Toggle = () => {
   const { isExpanded, onExpand, onCollapse } = useSidebar();
-
-  const toggleDivVariants: Variants = {
-    open: {
-      x: 0,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-    closed: {
-      x: -90,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-  };
 
   const hintLabel = isExpanded ? 'Collapse' : 'Expand';
 

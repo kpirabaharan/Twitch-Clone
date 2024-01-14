@@ -1,13 +1,13 @@
 'use client';
 
-import { Variants } from 'framer-motion';
 import { Heart } from 'lucide-react';
 
+import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
 
 import { Hint } from '@/components/hint';
 import { MotionDiv } from '@/components/motion-div';
-import { useScreenSize } from '@/store/useScreenSize';
+import { toggleDivVariants } from './animations';
 import { AvatarItem } from './avatar-item';
 
 interface FollowingProps {
@@ -17,17 +17,6 @@ interface FollowingProps {
 export const Following = ({ data }: FollowingProps) => {
   const { isExpanded } = useSidebar();
   const { isLargeScreen } = useScreenSize();
-
-  const toggleDivVariants: Variants = {
-    open: {
-      x: 0,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-    closed: {
-      x: -90,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-  };
 
   if (!data.length) {
     return null;
