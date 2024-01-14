@@ -33,7 +33,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
   return (
     <motion.aside
       className={cn(
-        'flex flex-col items-center gap-y-2 bg-[#1f1f23] pt-2',
+        'flex flex-col items-center bg-[#1f1f23] pt-2',
         isExpanded && 'pr-0',
       )}
       initial={'closed'}

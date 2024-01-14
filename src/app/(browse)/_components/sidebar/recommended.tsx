@@ -56,9 +56,11 @@ export const Recommended = ({ data }: RecommendedProps) => {
           )}
         </div>
       </MotionDiv>
-      {data.map((item, index) => (
-        <AvatarItem key={index} item={item} />
-      ))}
+      <div className='flex w-full flex-col gap-y-2'>
+        {data.map((item, index) => (
+          <AvatarItem key={index} item={item} />
+        ))}
+      </div>
     </>
   );
 };

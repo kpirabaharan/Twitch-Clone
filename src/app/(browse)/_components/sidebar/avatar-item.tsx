@@ -29,7 +29,13 @@ export const AvatarItem = ({ item }: AvatarItemProps) => {
       className='relative flex h-8 w-full flex-row items-center gap-x-4 
       overflow-hidden pl-[9px]'
     >
-      <AvatarHint label='L' side='right' user={item} asChild delayDuration={500}>
+      <AvatarHint
+        label='L'
+        side='right'
+        user={item}
+        asChild
+        delayDuration={500}
+      >
         <Avatar className='h-8 w-8 cursor-pointer'>
           <AvatarImage src={`https://github.com/${item}.png`} />
           <AvatarFallback>{'F'}</AvatarFallback>
@@ -43,13 +49,13 @@ export const AvatarItem = ({ item }: AvatarItemProps) => {
           {item}
         </p>
         <p
-          className='overflow-hidden text-ellipsis whitespace-nowrap text-xs 
-          text-muted-foreground'
+          className='w-[120px] overflow-hidden text-ellipsis whitespace-nowrap 
+          text-xs text-muted-foreground'
         >
           League of Legends
         </p>
       </div>
-      <div className='ml-auto mr-4 flex flex-row items-center gap-x-2'>
+      <div className='flex w-[48px] flex-row items-center gap-x-2'>
         <div className='h-2 w-2 rounded-full bg-red-600' />
         <p className='text-xs'>420</p>
       </div>

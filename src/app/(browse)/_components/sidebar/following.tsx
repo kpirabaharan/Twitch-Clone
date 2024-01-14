@@ -56,9 +56,11 @@ export const Following = ({ data }: FollowingProps) => {
           )}
         </div>
       </MotionDiv>
-      {data.map((item, index) => (
-        <AvatarItem key={index} item={item} />
-      ))}
+      <div className='flex flex-col gap-y-2 w-full'>
+        {data.map((item, index) => (
+          <AvatarItem key={index} item={item} />
+        ))}
+      </div>
     </>
   );
 };
