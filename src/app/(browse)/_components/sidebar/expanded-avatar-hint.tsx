@@ -9,6 +9,7 @@ import {
 
 interface ExpandedAvatarHintProps extends PropsWithChildren {
   description: string;
+  isLive: boolean;
   asChild?: boolean;
   side?: 'top' | 'bottom' | 'left' | 'right';
   align?: 'start' | 'center' | 'end';
@@ -17,6 +18,7 @@ interface ExpandedAvatarHintProps extends PropsWithChildren {
 
 export const ExpandedAvatarHint = ({
   description,
+  isLive,
   children,
   asChild,
   side,
@@ -35,7 +37,7 @@ export const ExpandedAvatarHint = ({
         >
           {children}
         </TooltipTrigger>
-        {showTooltip && (
+        {showTooltip && isLive && (
           <TooltipContent
             className='max-w-52 bg-[#1f1f23]'
             side={side}

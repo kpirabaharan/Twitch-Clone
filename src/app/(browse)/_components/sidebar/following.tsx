@@ -5,13 +5,15 @@ import { Heart } from 'lucide-react';
 import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
 
+import { User } from '@/db/types';
+
 import { Hint } from '@/components/hint';
 import { MotionDiv } from '@/components/motion-div';
 import { toggleDivVariants } from './animations';
 import { AvatarItem } from './avatar-item';
 
 interface FollowingProps {
-  data: any[];
+  data: User[];
 }
 
 export const Following = ({ data }: FollowingProps) => {
@@ -47,9 +49,14 @@ export const Following = ({ data }: FollowingProps) => {
           )}
         </div>
       </MotionDiv>
-      <div className='mt-2 flex w-full flex-col gap-y-2'>
-        {data.map((item, index) => (
-          <AvatarItem key={index} item={item} />
+      <div className='flex w-full flex-col gap-y-2'>
+        {data.map((user, index) => (
+          <AvatarItem
+            key={index}
+            userName={user.username}
+            imageUrl={user.imageUrl}
+            isLive={false}
+          />
         ))}
       </div>
     </>

@@ -1,4 +1,5 @@
 import { getRecommended } from '@/lib/recommended-service';
+import { Following } from './following';
 import { Recommended } from './recommended';
 import { Toggle } from './toggle';
 import { Wrapper } from './wrapper';
@@ -23,7 +24,7 @@ export const Sidebar = async () => {
   return (
     <Wrapper>
       <Toggle />
-      {/* <Following data={following} /> */}
+      <Following data={recommended} />
       <Recommended data={recommended} />
     </Wrapper>
   );
