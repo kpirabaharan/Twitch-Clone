@@ -39,11 +39,11 @@ export const SidebarChannel = ({
         delayDuration={500}
       >
         <div
-          className='flex w-full flex-row items-center gap-x-4
+          className='flex w-full flex-row items-center
           overflow-hidden py-1 pl-[9px] hover:bg-[#2f2f36]'
         >
           <UserAvatar imageUrl={imageUrl} username={userName} isLive={isLive} />
-          <div className='w-[140px]'>
+          <div className='min-w-[136px] ml-4'>
             <p
               className='overflow-hidden text-ellipsis whitespace-nowrap text-[13px] 
               font-semibold'
@@ -59,7 +59,7 @@ export const SidebarChannel = ({
               </p>
             )}
           </div>
-          <div className={cn('relative', isLive ? '-top-2' : '')}>
+          <div className={cn('relative ml-auto', isLive ? '-top-2' : '')}>
             <UserStatus isLive={isLive} numViewers={69} />
           </div>
         </div>

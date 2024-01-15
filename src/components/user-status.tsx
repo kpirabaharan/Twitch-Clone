@@ -10,7 +10,7 @@ export const UserStatus = ({
   numViewers = 420,
 }: UserStatusProps) => {
   return (
-    <div className='mr-2'>
+    <div className='pr-2'>
       {isLive ? (
         <p className='whitespace-nowrap text-xs text-muted-foreground'>
           <span className='mr-1 inline-flex h-2 w-2 rounded-full bg-red-500' />

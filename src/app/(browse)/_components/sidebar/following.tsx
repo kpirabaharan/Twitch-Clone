@@ -34,20 +34,22 @@ export const Following = ({ data }: FollowingProps) => {
         variants={toggleDivVariants}
       >
         <p className='text-xs font-semibold uppercase'>Followed Channels</p>
-        <div className='inline-flex h-10 w-10 items-center justify-center'>
-          {!isExpanded ? (
-            <Hint
-              delayDuration={500}
-              label={'Followed Channels'}
-              side='right'
-              asChild
-            >
+        {!isExpanded ? (
+          <Hint
+            delayDuration={500}
+            label={'Followed Channels'}
+            side='right'
+            asChild
+          >
+            <div className='inline-flex h-10 w-10 items-center justify-center'>
               <Heart className='h-5 w-5' />
-            </Hint>
-          ) : (
+            </div>
+          </Hint>
+        ) : (
+          <div className='inline-flex h-10 w-10 items-center justify-center'>
             <Heart className='h-5 w-5' />
-          )}
-        </div>
+          </div>
+        )}
       </MotionDiv>
       <div className='flex w-full flex-col gap-y-2'>
         {data.map((user, index) => (
