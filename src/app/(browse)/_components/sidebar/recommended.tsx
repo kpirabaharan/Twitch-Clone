@@ -10,7 +10,7 @@ import { User } from '@/db/types';
 import { Hint } from '@/components/hint';
 import { MotionDiv } from '@/components/motion-div';
 import { toggleDivVariants } from './animations';
-import { AvatarItem } from './avatar-item';
+import { SidebarChannel } from './sidebar-channel';
 
 interface RecommendedProps {
   data: User[];
@@ -51,7 +51,7 @@ export const Recommended = ({ data }: RecommendedProps) => {
       </MotionDiv>
       <div className='flex w-full flex-col gap-y-2'>
         {data.map((user, index) => (
-          <AvatarItem
+          <SidebarChannel
             key={index}
             userName={user.username}
             imageUrl={user.imageUrl}
