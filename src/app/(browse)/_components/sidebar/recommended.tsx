@@ -49,7 +49,7 @@ export const Recommended = ({ data }: RecommendedProps) => {
           )}
         </div>
       </MotionDiv>
-      <div className='flex w-full flex-col gap-y-2'>
+      <ul className='flex w-full flex-col gap-y-2'>
         {data.map((user, index) => (
           <SidebarChannel
             key={index}
@@ -58,7 +58,7 @@ export const Recommended = ({ data }: RecommendedProps) => {
             isLive={true}
           />
         ))}
-      </div>
+      </ul>
     </>
   );
 };

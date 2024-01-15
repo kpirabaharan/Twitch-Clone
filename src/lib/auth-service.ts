@@ -10,7 +10,7 @@ export const getSelf = async () => {
   const self = await currentUser();
 
   if (!self || !self.username) {
-    throw new Error('Unauthorized');
+    return null;
   }
 
   const user = await db.query.users.findFirst({
@@ -18,7 +18,7 @@ export const getSelf = async () => {
   });
 
   if (!user) {
-    throw new Error('Not found');
+    return null;
   }
 
   return user;
