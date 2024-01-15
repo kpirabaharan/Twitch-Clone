@@ -1,12 +1,12 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { PropsWithChildren } from 'react';
 
 import { cn } from '@/lib/utils';
 import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
 
+import { MotionAside } from '@/components/framer/motion-aside';
 import { sideBarVariants } from './animations';
 
 interface WrapperProps extends PropsWithChildren {}
@@ -16,7 +16,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
   const { isExpanded } = useSidebar();
 
   return (
-    <motion.aside
+    <MotionAside
       className={cn(
         'fixed flex h-full flex-col items-center border-r bg-[#1f1f23] pt-2 shadow-sm',
         isExpanded && 'pr-0',
@@ -27,6 +27,6 @@ export const Wrapper = ({ children }: WrapperProps) => {
       variants={sideBarVariants}
     >
       {children}
-    </motion.aside>
+    </MotionAside>
   );
 };

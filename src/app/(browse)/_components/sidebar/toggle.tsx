@@ -4,8 +4,8 @@ import { PanelLeftCloseIcon, PanelLeftOpenIcon } from 'lucide-react';
 
 import { useSidebar } from '@/store/useSidebar';
 
+import { MotionDiv } from '@/components/framer/motion-div';
 import { Hint } from '@/components/hint';
-import { MotionDiv } from '@/components/motion-div';
 import { Button } from '@/components/ui/button';
 import { toggleDivVariants } from './animations';
 

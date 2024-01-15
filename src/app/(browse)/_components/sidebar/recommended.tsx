@@ -7,8 +7,8 @@ import { useSidebar } from '@/store/useSidebar';
 
 import { User } from '@/db/types';
 
+import { MotionDiv } from '@/components/framer/motion-div';
 import { Hint } from '@/components/hint';
-import { MotionDiv } from '@/components/motion-div';
 import { toggleDivVariants } from './animations';
 import { SidebarChannel } from './sidebar-channel';
 
