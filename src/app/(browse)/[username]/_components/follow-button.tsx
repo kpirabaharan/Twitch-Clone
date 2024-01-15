@@ -40,7 +40,7 @@ export const FollowButton = ({ isFollowing, userId }: FollowButtonProps) => {
   const onClick = isFollowing ? handleUnFollow : handleFollow;
 
   return (
-    <Button disabled={isPending} onClick={onClick}>
+    <Button variant={'tertiary'} disabled={isPending} onClick={onClick}>
       {isFollowing ? 'Unfollow' : 'Follow'}
     </Button>
   );

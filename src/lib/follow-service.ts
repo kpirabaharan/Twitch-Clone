@@ -4,6 +4,25 @@ import { db } from '@/db';
 import { follow, users } from '@/db/schema';
 import { getSelf } from './auth-service';
 
+export const getFollowing = async () => {
+  try {
+    const self = await getSelf();
+
+    if (!self) {
+      throw new Error('Unauthorized');
+    }
+
+    const followedUsers = await db.query.follow.findMany({
+      where: eq(follow.followerId, self.id),
+      with: { following: true },
+    });
+
+    return followedUsers;
+  } catch (err) {
+    return [];
+  }
+};
+
 export const isFollowingUser = async (id: string) => {
   try {
     const self = await getSelf();

@@ -5,7 +5,7 @@ import { Heart } from 'lucide-react';
 import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
 
-import { User } from '@/db/types';
+import { Follow, User } from '@/db/types';
 
 import { Hint } from '@/components/hint';
 import { MotionDiv } from '@/components/motion-div';
@@ -13,7 +13,7 @@ import { toggleDivVariants } from './animations';
 import { SidebarChannel } from './sidebar-channel';
 
 interface FollowingProps {
-  data: User[];
+  data: (Follow & { following: User })[];
 }
 
 export const Following = ({ data }: FollowingProps) => {
@@ -52,11 +52,11 @@ export const Following = ({ data }: FollowingProps) => {
         )}
       </MotionDiv>
       <ul className='flex w-full flex-col gap-y-2'>
-        {data.map((user, index) => (
+        {data.map((item, index) => (
           <SidebarChannel
             key={index}
-            userName={user.username}
-            imageUrl={user.imageUrl}
+            userName={item.following.username}
+            imageUrl={item.following.imageUrl}
             isLive={false}
           />
         ))}

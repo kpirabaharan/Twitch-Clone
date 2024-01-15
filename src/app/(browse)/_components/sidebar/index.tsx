@@ -1,5 +1,4 @@
-import { currentUser } from '@clerk/nextjs';
-
+import { getFollowing } from '@/lib/follow-service';
 import { getRecommended } from '@/lib/recommended-service';
 
 import { Skeleton } from '@/components/ui/skeleton';
@@ -11,14 +10,13 @@ import { Wrapper } from './wrapper';
 export const revalidate = 0;
 
 export const Sidebar = async () => {
-  const user = await currentUser();
-
+  const following = await getFollowing();
   const recommended = await getRecommended();
 
   return (
     <Wrapper>
       <Toggle />
-      <Following data={[]} />
+      <Following data={following} />
       <Recommended data={recommended} />
     </Wrapper>
   );
