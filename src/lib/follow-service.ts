@@ -78,7 +78,7 @@ export const followUser = async (id: string) => {
 
   const followRecordWithUsers = await db.query.follow.findFirst({
     where: eq(follow.id, insertFollow.id),
-    with: { follower: true, following: true },
+    with: { following: true },
   });
 
   if (!followRecordWithUsers) {
@@ -86,4 +86,45 @@ export const followUser = async (id: string) => {
   }
 
   return followRecordWithUsers;
+};
+
+export const unfollowUser = async (id: string) => {
+  const self = await getSelf();
+
+  if (!self) {
+    throw new Error('Unauthorized');
+  }
+
+  const otherUser = await db.query.users.findFirst({
+    where: eq(users.id, id),
+  });
+
+  if (!otherUser) {
+    throw new Error('User not found');
+  }
+
+  if (otherUser.id === self.id) {
+    throw new Error('Cannot unfollow yourself');
+  }
+
+  const existingFollow = await db.query.follow.findFirst({
+    where: and(
+      eq(follow.followerId, self.id),
+      eq(follow.followingId, otherUser.id),
+    ),
+    with: { following: true },
+  });
+
+  if (!existingFollow) {
+    throw new Error('Not following');
+  }
+
+  await db
+    .delete(follow)
+    .where(
+      and(eq(follow.followerId, self.id), eq(follow.followingId, otherUser.id)),
+    )
+    .execute();
+
+  return existingFollow;
 };
