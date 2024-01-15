@@ -3,6 +3,8 @@ import { dark } from '@clerk/themes';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+import { Toaster } from 'sonner';
+
 import './globals.css';
 
 import { cn } from '@/lib/utils';
@@ -27,6 +29,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <html lang='en'>
         <ThemeProvider defaultTheme='system'>
           <body className={cn('no-scrollbar', inter.className)}>
+            <Toaster richColors theme={'light'} position='bottom-right' />
             {children}
           </body>
         </ThemeProvider>
