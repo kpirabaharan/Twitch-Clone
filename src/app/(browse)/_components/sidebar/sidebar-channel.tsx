@@ -5,9 +5,10 @@ import { usePathname } from 'next/navigation';
 
 import { useSidebar } from '@/store/useSidebar';
 
+import { MotionDiv } from '@/components/framer/motion-div';
 import { UserAvatar } from '@/components/user-avatar';
 import { UserStatus } from '@/components/user-status';
-import { cn } from '@/lib/utils';
+import { sideBarChannel } from './animations';
 import { AvatarHint } from './avatar-hint';
 
 interface SidebarChannelProps {
@@ -38,12 +39,16 @@ export const SidebarChannel = ({
         asChild
         delayDuration={500}
       >
-        <div
-          className='flex w-full flex-row items-center
-          overflow-hidden py-1 pl-[9px] hover:bg-[#2f2f36]'
+        <MotionDiv
+          className='flex flex-row items-center gap-x-4 overflow-hidden px-[14px] 
+           hover:bg-[#2f2f36] h-[44px]'
+          initial={isExpanded ? 'open' : 'closed'}
+          animate={isExpanded ? 'open' : 'closed'}
+          exit={isExpanded ? 'open' : 'closed'}
+          variants={sideBarChannel}
         >
           <UserAvatar imageUrl={imageUrl} username={userName} isLive={isLive} />
-          <div className='min-w-[136px] ml-4'>
+          <div>
             <p
               className='overflow-hidden text-ellipsis whitespace-nowrap text-[13px] 
               font-semibold'
@@ -59,10 +64,10 @@ export const SidebarChannel = ({
               </p>
             )}
           </div>
-          <div className={cn('relative ml-auto', isLive ? '-top-2' : '')}>
+          <div className='ml-auto'>
             <UserStatus isLive={isLive} numViewers={69} />
           </div>
-        </div>
+        </MotionDiv>
       </AvatarHint>
     </Link>
   );

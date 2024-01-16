@@ -2,7 +2,6 @@
 
 import { PropsWithChildren } from 'react';
 
-import { cn } from '@/lib/utils';
 import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
 
@@ -17,10 +16,8 @@ export const Wrapper = ({ children }: WrapperProps) => {
 
   return (
     <MotionAside
-      className={cn(
-        'fixed flex h-full flex-col items-center border-r bg-[#1f1f23] pt-2 shadow-sm',
-        isExpanded && 'pr-0',
-      )}
+      className='fixed flex h-full w-[240px] flex-col items-center border-r 
+      bg-[#1f1f23] pt-2 shadow-sm'
       initial={'closed'}
       animate={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
       exit={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}

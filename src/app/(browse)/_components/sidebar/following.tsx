@@ -2,14 +2,11 @@
 
 import { Heart } from 'lucide-react';
 
-import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
 
 import { Follow, User } from '@/db/types';
 
-import { MotionDiv } from '@/components/framer/motion-div';
 import { Hint } from '@/components/hint';
-import { toggleDivVariants } from './animations';
 import { SidebarChannel } from './sidebar-channel';
 
 interface FollowingProps {
@@ -18,7 +15,6 @@ interface FollowingProps {
 
 export const Following = ({ data }: FollowingProps) => {
   const { isExpanded } = useSidebar();
-  const { isLargeScreen } = useScreenSize();
 
   if (!data.length) {
     return null;
@@ -26,13 +22,7 @@ export const Following = ({ data }: FollowingProps) => {
 
   return (
     <>
-      <MotionDiv
-        className='flex w-[220px] flex-row items-center justify-between'
-        initial={'closed'}
-        animate={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
-        exit={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
-        variants={toggleDivVariants}
-      >
+      <div className='flex w-[220px] flex-row items-center justify-between'>
         <p className='text-xs font-semibold uppercase'>Followed Channels</p>
         {!isExpanded ? (
           <Hint
@@ -50,7 +40,7 @@ export const Following = ({ data }: FollowingProps) => {
             <Heart className='h-5 w-5' />
           </div>
         )}
-      </MotionDiv>
+      </div>
       <ul className='flex w-full flex-col gap-y-2'>
         {data.map((item, index) => (
           <SidebarChannel

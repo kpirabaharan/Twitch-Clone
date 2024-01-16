@@ -3,10 +3,11 @@
 import { PropsWithChildren, useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { MotionDiv } from '@/components/framer/motion-div';
 import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
-import { Variants } from 'framer-motion';
+
+import { MotionDiv } from '@/components/framer/motion-div';
+import { mainVariants } from './sidebar/animations';
 
 interface ContainerProps extends PropsWithChildren {}
 
@@ -24,24 +25,13 @@ export const Container = ({ children }: ContainerProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [matches]);
 
-  const variants: Variants = {
-    open: {
-      marginLeft: 240,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-    closed: {
-      marginLeft: 50,
-      transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
-    },
-  };
-
   return (
     <MotionDiv
       className='flex-1'
       initial={'closed'}
       animate={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
       exit={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}
-      variants={variants}
+      variants={mainVariants}
     >
       {children}
     </MotionDiv>
