@@ -10,9 +10,9 @@ export const users = pgTable('user', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-export const userRelations = relations(users, ({ one, many }) => ({
-  followers: many(follow),
-  following: many(follow),
+export const userRelations = relations(users, ({ many }) => ({
+  followers: many(follow, { relationName: 'follower' }),
+  following: many(follow, { relationName: 'following' }),
 }));
 
 export const follow = pgTable('follower', {
@@ -29,9 +29,14 @@ export const follow = pgTable('follower', {
 });
 
 export const followRelations = relations(follow, ({ one }) => ({
-  follower: one(users, { fields: [follow.followerId], references: [users.id] }),
+  follower: one(users, {
+    fields: [follow.followerId],
+    references: [users.id],
+    relationName: 'follower',
+  }),
   following: one(users, {
     fields: [follow.followingId],
     references: [users.id],
+    relationName: 'following',
   }),
 }));

@@ -40,8 +40,8 @@ export const SidebarChannel = ({
         delayDuration={500}
       >
         <MotionDiv
-          className='flex flex-row items-center gap-x-4 overflow-hidden px-[14px] 
-           hover:bg-[#2f2f36] h-[44px]'
+          className='flex h-[44px] flex-row items-center gap-x-4 overflow-hidden 
+           px-[14px] hover:bg-[#2f2f36]'
           initial={isExpanded ? 'open' : 'closed'}
           animate={isExpanded ? 'open' : 'closed'}
           exit={isExpanded ? 'open' : 'closed'}
