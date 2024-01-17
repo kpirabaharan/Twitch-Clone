@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { useScreenSize } from '@/store/useScreenSize';
 import { useSidebar } from '@/store/useSidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
@@ -24,9 +25,16 @@ export const SidebarChannel = ({
 }: SidebarChannelProps) => {
   const pathname = usePathname();
   const { isExpanded } = useSidebar();
+  const { isLargeScreen } = useScreenSize();
 
   const href = `/${userName}`;
   const isActive = pathname === href;
+
+  const animationCondition = !isLargeScreen
+    ? 'closed'
+    : isExpanded
+      ? 'open'
+      : 'closed';
 
   return (
     <Link href={href} className='relative'>
@@ -42,9 +50,9 @@ export const SidebarChannel = ({
         <MotionDiv
           className='flex h-[44px] flex-row items-center gap-x-4 overflow-hidden 
            px-[14px] hover:bg-[#2f2f36]'
-          initial={isExpanded ? 'open' : 'closed'}
-          animate={isExpanded ? 'open' : 'closed'}
-          exit={isExpanded ? 'open' : 'closed'}
+          initial={animationCondition}
+          animate={animationCondition}
+          exit={animationCondition}
           variants={sideBarChannel}
         >
           <UserAvatar imageUrl={imageUrl} username={userName} isLive={isLive} />
