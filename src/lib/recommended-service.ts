@@ -1,7 +1,7 @@
-import { asc, ne } from 'drizzle-orm';
+import { and, asc, eq, ne, notInArray } from 'drizzle-orm';
 
 import { db } from '@/db';
-import { users } from '@/db/schema';
+import { follow, users } from '@/db/schema';
 import { User } from '@/db/types';
 import { getSelf } from '@/lib/auth-service';
 
@@ -15,12 +15,20 @@ export const getRecommended = async () => {
       orderBy: [asc(users.createdAt)],
     });
   } else {
+    // Related Queries using notInArray
     recommended = await db.query.users.findMany({
-      where: ne(users.id, self.id),
-      orderBy: [asc(users.createdAt)],
+      where: and(
+        ne(users.id, self.id),
+        notInArray(
+          users.id,
+          db
+            .select({ id: follow.followingId })
+            .from(follow)
+            .where(eq(follow.followerId, self.id)),
+        ),
+      ),
     });
   }
 
   return recommended;
 };
-9;
