@@ -11,11 +11,11 @@ export const users = pgTable('user', {
 });
 
 export const userRelations = relations(users, ({ many }) => ({
-  followers: many(follow, { relationName: 'follower' }),
-  following: many(follow, { relationName: 'following' }),
+  following: many(follow, { relationName: 'follower' }),
+  followedBy: many(follow, { relationName: 'following' }),
 }));
 
-export const follow = pgTable('follower', {
+export const follow = pgTable('follow', {
   id: uuid('id').defaultRandom().primaryKey(),
   // Self
   followerId: uuid('follower_id')
