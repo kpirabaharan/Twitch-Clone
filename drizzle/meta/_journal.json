@@ -50,6 +50,13 @@
       "when": 1705465876357,
       "tag": "0006_damp_mystique",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1705537943575,
+      "tag": "0007_loving_smasher",
+      "breakpoints": true
     }
   ]
 }
