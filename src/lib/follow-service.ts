@@ -93,10 +93,13 @@ export const followUser = async (id: string) => {
       followerId: self.id,
       followingId: otherUser.id,
     })
-    .returning({ id: follow.id });
+    .returning();
 
   const followRecordWithUsers = await db.query.follow.findFirst({
-    where: eq(follow.id, insertFollow.id),
+    where: and(
+      eq(follow.followerId, insertFollow.followerId),
+      eq(follow.followingId, insertFollow.followingId),
+    ),
     with: { following: true },
   });
 
