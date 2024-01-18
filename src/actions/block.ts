@@ -1,3 +1,5 @@
+'use server';
+
 import { revalidatePath } from 'next/cache';
 
 import { blockUser, unblockUser } from '@/lib/block-service';

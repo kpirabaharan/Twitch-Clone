@@ -4,7 +4,7 @@ import { db } from '@/db';
 import { block, users } from '@/db/schema';
 import { getSelf } from '@/lib/auth-service';
 
-export const isBlockedUser = async (id: string) => {
+export const isBlockingUser = async (id: string) => {
   try {
     const self = await getSelf();
 
@@ -28,6 +28,40 @@ export const isBlockedUser = async (id: string) => {
       where: and(
         eq(block.blockerId, self.id),
         eq(block.blockingId, otherUser.id),
+      ),
+    });
+
+    // Return true if record exists, false otherwise
+    return !!blockRecord;
+  } catch (err: any) {
+    return false;
+  }
+};
+
+export const isBlockedByUser = async (id: string) => {
+  try {
+    const self = await getSelf();
+
+    if (!self) {
+      throw new Error('Unauthorized');
+    }
+
+    const otherUser = await db.query.users.findFirst({
+      where: eq(users.id, id),
+    });
+
+    if (!otherUser) {
+      throw new Error('User not found');
+    }
+
+    if (otherUser.id === self.id) {
+      return true;
+    }
+
+    const blockRecord = await db.query.block.findFirst({
+      where: and(
+        eq(block.blockerId, otherUser.id),
+        eq(block.blockingId, self.id),
       ),
     });
 
@@ -129,5 +163,5 @@ export const unblockUser = async (id: string) => {
     )
     .execute();
 
-return existingBlock;
+  return existingBlock;
 };
