@@ -3,7 +3,7 @@
 import { useTransition } from 'react';
 import { toast } from 'sonner';
 
-import { onFollow, onUnFollow } from '@/actions/follow';
+import { onFollow, onUnfollow } from '@/actions/follow';
 
 import { Button } from '@/components/ui/button';
 
@@ -29,7 +29,7 @@ export const FollowButton = ({ isFollowing, userId }: FollowButtonProps) => {
   const handleUnFollow = () => {
     startTransition(async () => {
       try {
-        const unFollowedUser = await onUnFollow(userId);
+        const unFollowedUser = await onUnfollow(userId);
         toast.success(`Unfollowed ${unFollowedUser.following.username}`);
       } catch (err: any) {
         toast(err.message);

@@ -70,7 +70,7 @@ export const block = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     // Other user
-    blockedId: uuid('blocked_id')
+    blockingId: uuid('blocked_id')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -79,10 +79,10 @@ export const block = pgTable(
     return {
       pk: primaryKey({
         name: 'block_unique',
-        columns: [table.blockerId, table.blockedId],
+        columns: [table.blockerId, table.blockingId],
       }),
       blockerIndex: index('blocker_index').on(table.blockerId),
-      blockedIndex: index('blocked_index').on(table.blockedId),
+      blockingIndex: index('blocking_index').on(table.blockingId),
     };
   },
 );
@@ -93,8 +93,8 @@ export const blockRelations = relations(block, ({ one }) => ({
     references: [users.id],
     relationName: 'blocking',
   }),
-  blocked: one(users, {
-    fields: [block.blockedId],
+  blocking: one(users, {
+    fields: [block.blockingId],
     references: [users.id],
     relationName: 'blockedBy',
   }),
