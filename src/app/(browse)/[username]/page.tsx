@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { isBlockingUser } from '@/lib/block-service';
+import { isBlockedByUser, isBlockingUser } from '@/lib/block-service';
 import { isFollowingUser } from '@/lib/follow-service';
 import { getUserByUsername } from '@/lib/user-service';
 
@@ -21,15 +21,22 @@ const UserPage = async ({ params }: UserPageParams) => {
   }
 
   const isFollowing = await isFollowingUser(user.id);
-  const isBlocked = await isBlockingUser(user.id);
+  const isBlocking = await isBlockingUser(user.id);
+  const isBlockedBy = await isBlockedByUser(user.id);
+
+  // if (isBlockedBy) {
+  //   notFound();
+  // }
 
   return (
     <div className='flex h-full flex-col items-center justify-center gap-y-4'>
       <p>Username: {user.username}</p>
       <p>User ID: {user.id}</p>
       <p>Is Following: {isFollowing.toString()}</p>
+      <p>Is Blocking: {isBlocking.toString()}</p>
+      <p>Is Blocked By: {isBlockedBy.toString()}</p>
       <FollowButton userId={user.id} isFollowing={isFollowing} />
-      <BlockButton userId={user.id} isBlocked={isBlocked} />
+      <BlockButton userId={user.id} isBlocking={isBlocking} />
     </div>
   );
 };

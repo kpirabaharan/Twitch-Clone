@@ -8,11 +8,11 @@ import { onBlock, onUnblock } from '@/actions/block';
 import { Button } from '@/components/ui/button';
 
 interface BlockButtonProps {
-  isBlocked: boolean;
+  isBlocking: boolean;
   userId: string;
 }
 
-export const BlockButton = ({ isBlocked, userId }: BlockButtonProps) => {
+export const BlockButton = ({ isBlocking, userId }: BlockButtonProps) => {
   const [isPending, startTransition] = useTransition();
 
   const handleBlock = () => {
@@ -37,11 +37,11 @@ export const BlockButton = ({ isBlocked, userId }: BlockButtonProps) => {
     });
   };
 
-  const onClick = isBlocked ? handleUnBlock : handleBlock;
+  const onClick = isBlocking ? handleUnBlock : handleBlock;
 
   return (
     <Button variant={'tertiary'} disabled={isPending} onClick={onClick}>
-      {isBlocked ? 'Unblock' : 'Block'}
+      {isBlocking ? 'Unblock' : 'Block'}
     </Button>
   );
 };
