@@ -1,7 +1,7 @@
-import { and, eq } from 'drizzle-orm';
+import { and, eq, notInArray } from 'drizzle-orm';
 
 import { db } from '@/db';
-import { follow, users } from '@/db/schema';
+import { block, follow, users } from '@/db/schema';
 import { getSelf } from './auth-service';
 
 export const getFollowing = async () => {
@@ -13,7 +13,16 @@ export const getFollowing = async () => {
     }
 
     const followedUsers = await db.query.follow.findMany({
-      where: eq(follow.followerId, self.id),
+      where: and(
+        eq(follow.followerId, self.id),
+        notInArray(
+          follow.followingId,
+          db
+            .select({ id: block.blockerId })
+            .from(block)
+            .where(eq(block.blockingId, self.id)),
+        ),
+      ),
       with: { following: true },
     });
 
