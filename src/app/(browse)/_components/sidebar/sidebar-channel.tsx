@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { useScreenSize } from '@/store/useScreenSize';
-import { useSidebar } from '@/store/useSidebar';
+import { useScreenSize } from '@/store/use-screen-size';
+import { useSidebar } from '@/store/use-sidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
 import { UserAvatar } from '@/components/user-avatar';

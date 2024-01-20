@@ -2,7 +2,7 @@
 
 import { Heart } from 'lucide-react';
 
-import { useSidebar } from '@/store/useSidebar';
+import { useSidebar } from '@/store/use-sidebar';
 
 import { Follow, User } from '@/db/types';
 

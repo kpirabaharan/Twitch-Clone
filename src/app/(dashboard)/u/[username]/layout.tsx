@@ -2,7 +2,10 @@ import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
 import { getSelfByUsername } from '@/lib/user-service';
+
+import { Container } from './(home)/_components/container';
 import { Navbar } from './(home)/_components/navbar';
+import { Sidebar } from './(home)/_components/sidebar';
 
 interface CreatorLayoutProps extends PropsWithChildren {
   params: { username: string };
@@ -18,7 +21,10 @@ const CreatorLayout = async ({ params, children }: CreatorLayoutProps) => {
   return (
     <>
       <Navbar />
-      <div>{children}</div>
+      <div className='flex h-full pt-14'>
+        <Sidebar />
+        <Container>{children}</Container>
+      </div>
     </>
   );
 };

@@ -2,7 +2,7 @@
 
 import { VideoIcon } from 'lucide-react';
 
-import { useSidebar } from '@/store/useSidebar';
+import { useSidebar } from '@/store/use-sidebar';
 
 import { User } from '@/db/types';
 
