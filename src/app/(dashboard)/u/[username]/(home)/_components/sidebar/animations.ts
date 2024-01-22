@@ -2,24 +2,22 @@ import { Variants } from 'framer-motion';
 
 export const sideBarVariants: Variants = {
   open: {
-    x: 0,
+    translateX: 0,
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
   },
   closed: {
-    x: -180,
+    translateX: -180,
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
   },
 };
 
 export const navItemVariants: Variants = {
   open: {
-    width: 240,
-    x: 0,
+    translateX: 0,
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
   },
   closed: {
-    width: 60,
-    x: 180,
+    translateX: 180,
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
   },
 };

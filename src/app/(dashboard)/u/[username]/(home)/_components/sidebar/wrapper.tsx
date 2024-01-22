@@ -3,7 +3,6 @@
 import { PropsWithChildren } from 'react';
 
 import { useCreatorSidebar } from '@/store/use-creator-sidebar';
-import { useScreenSize } from '@/store/use-screen-size';
 
 import { MotionAside } from '@/components/framer/motion-aside';
 import { sideBarVariants } from './animations';
@@ -11,7 +10,6 @@ import { sideBarVariants } from './animations';
 interface WrapperProps extends PropsWithChildren {}
 
 export const Wrapper = ({ children }: WrapperProps) => {
-  const { isLargeScreen } = useScreenSize();
   const { isExpanded } = useCreatorSidebar();
 
   return (

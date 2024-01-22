@@ -24,22 +24,24 @@ export const Recommended = ({ data }: RecommendedProps) => {
     <>
       <div className='flex w-[220px] flex-row items-center justify-between'>
         <p className='text-xs font-semibold uppercase'>Recommended Channels</p>
-        <div className='inline-flex h-10 w-10 items-center justify-center'>
-          {!isExpanded ? (
-            <Hint
-              delayDuration={500}
-              label={'Recommended Channels'}
-              side='right'
-              asChild
-            >
+        {!isExpanded ? (
+          <Hint
+            delayDuration={500}
+            label={'Recommended Channels'}
+            side='right'
+            asChild
+          >
+            <div className='inline-flex h-10 w-10 items-center justify-center'>
               <VideoIcon className='h-5 w-5' />
-            </Hint>
-          ) : (
+            </div>
+          </Hint>
+        ) : (
+          <div className='inline-flex h-10 w-10 items-center justify-center'>
             <VideoIcon className='h-5 w-5' />
-          )}
-        </div>
+          </div>
+        )}
       </div>
-      <ul className='flex w-full flex-col gap-y-2'>
+      <ul className='flex w-full flex-col gap-y-2 overflow-hidden'>
         {data.map((user, index) => (
           <SidebarChannel
             key={index}

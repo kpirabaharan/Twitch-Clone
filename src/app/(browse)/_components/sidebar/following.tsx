@@ -41,7 +41,7 @@ export const Following = ({ data }: FollowingProps) => {
           </div>
         )}
       </div>
-      <ul className='flex w-full flex-col gap-y-2'>
+      <ul className='flex w-full flex-col gap-y-2 overflow-hidden'>
         {data.map((item, index) => (
           <SidebarChannel
             key={index}

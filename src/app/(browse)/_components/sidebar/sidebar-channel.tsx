@@ -1,15 +1,17 @@
 'use client';
 
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { useScreenSize } from '@/store/use-screen-size';
 import { useSidebar } from '@/store/use-sidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
+import { Button } from '@/components/ui/button';
 import { UserAvatar } from '@/components/user-avatar';
 import { UserStatus } from '@/components/user-status';
-import { sideBarChannel } from './animations';
+import { cn } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { sideBarChannelVariants } from './animations';
 import { AvatarHint } from './avatar-hint';
 
 interface SidebarChannelProps {
@@ -23,6 +25,7 @@ export const SidebarChannel = ({
   imageUrl,
   isLive,
 }: SidebarChannelProps) => {
+  const router = useRouter();
   const pathname = usePathname();
   const { isExpanded } = useSidebar();
   const { isLargeScreen } = useScreenSize();
@@ -37,46 +40,51 @@ export const SidebarChannel = ({
       : 'closed';
 
   return (
-    <Link href={href} className='relative'>
-      <AvatarHint
-        userName={userName}
-        side='right'
-        isExpanded={isExpanded}
-        isLive={isLive}
-        description='temp'
+    <AvatarHint
+      side='right'
+      userName={userName}
+      description='temp'
+      isExpanded={isExpanded}
+      isLive={isLive}
+      delayDuration={500}
+      asChild
+    >
+      <Button
+        variant={'ghost'}
+        className='rounded-none px-[14px]'
+        onClick={() => router.push(href)}
         asChild
-        delayDuration={500}
       >
         <MotionDiv
-          className='flex h-[44px] flex-row items-center gap-x-4 overflow-hidden 
-          px-[14px] hover:bg-[#2f2f36]'
+          className='overflow- flex h-[48px] w-60 cursor-pointer flex-row 
+          items-center gap-x-4'
           initial={animationCondition}
           animate={animationCondition}
           exit={animationCondition}
-          variants={sideBarChannel}
+          variants={sideBarChannelVariants}
         >
           <UserAvatar imageUrl={imageUrl} username={userName} isLive={isLive} />
           <div>
             <p
-              className='overflow-hidden text-ellipsis whitespace-nowrap text-[13px] 
+              className='text-ellipsis whitespace-nowrap text-[13px] 
               font-semibold'
             >
               {userName}
             </p>
             {isLive && (
               <p
-                className='overflow-hidden text-ellipsis whitespace-nowrap 
+                className='text-ellipsis whitespace-nowrap 
                 text-xs text-muted-foreground'
               >
                 League of Legends
               </p>
             )}
           </div>
-          <div className='ml-auto'>
+          <div className={cn('ml-auto', isLive && 'mb-auto')}>
             <UserStatus isLive={isLive} numViewers={69} />
           </div>
         </MotionDiv>
-      </AvatarHint>
-    </Link>
+      </Button>
+    </AvatarHint>
   );
 };

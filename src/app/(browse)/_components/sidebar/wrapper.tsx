@@ -16,7 +16,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
 
   return (
     <MotionAside
-      className='fixed left-44 flex h-full w-[240px] flex-col items-center border-r 
+      className='fixed left-0 flex h-full w-[240px] flex-col items-center border-r 
       bg-[#1f1f23] pt-2 shadow-sm'
       initial={'closed'}
       animate={!isLargeScreen ? 'closed' : isExpanded ? 'open' : 'closed'}

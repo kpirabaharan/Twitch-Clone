@@ -56,7 +56,7 @@ export const AvatarHint = ({
             )
           ) : (
             <TooltipContent
-              className='relative left-1 max-w-52 bg-[#1f1f23]'
+              className='relative -left-[175px] max-w-52 bg-[#1f1f23]'
               side={side}
               align={align}
               onMouseEnter={() => setShowTooltip(false)}
