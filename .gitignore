@@ -41,3 +41,6 @@ data/db/
 
 # drizzle migrations
 drizzle/
+
+# build
+dist/
