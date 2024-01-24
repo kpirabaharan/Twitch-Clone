@@ -3,6 +3,7 @@
 import { useUser } from '@clerk/nextjs';
 import {
   FullscreenIcon,
+  HomeIcon,
   KeyRoundIcon,
   MessageSquareIcon,
   UsersIcon,
@@ -15,26 +16,31 @@ export const Navigation = () => {
   const { user } = useUser();
 
   const routes = [
-    { label: 'Stream', href: `/u${user?.username}`, icon: FullscreenIcon },
+    { label: 'Home', href: `/u/${user?.username}`, icon: HomeIcon },
+    {
+      label: 'Stream',
+      href: `/u/${user?.username}/stream`,
+      icon: FullscreenIcon,
+    },
     {
       label: 'Keys',
-      href: `/u${user?.username}/keys`,
+      href: `/u/${user?.username}/keys`,
       icon: KeyRoundIcon,
     },
     {
       label: 'Chat',
-      href: `/u${user?.username}/chat`,
+      href: `/u/${user?.username}/chat`,
       icon: MessageSquareIcon,
     },
     {
       label: 'Community',
-      href: `/u${user?.username}/community`,
+      href: `/u/${user?.username}/community`,
       icon: UsersIcon,
     },
   ];
 
   return (
-    <ul className='flex w-full flex-col overflow-hidden'>
+    <ul className='flex w-full flex-col overflow-hidden mt-2'>
       {routes.map((route, index) => (
         <NavItem
           key={index}

@@ -3,9 +3,9 @@ import { PropsWithChildren } from 'react';
 
 import { getSelfByUsername } from '@/lib/user-service';
 
-import { Container } from './(home)/_components/container';
-import { Navbar } from './(home)/_components/navbar';
-import { Sidebar } from './(home)/_components/sidebar';
+import { Container } from './_components/container';
+import { Navbar } from './_components/navbar';
+import { Sidebar } from './_components/sidebar';
 
 interface CreatorLayoutProps extends PropsWithChildren {
   params: { username: string };

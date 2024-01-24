@@ -1,6 +1,7 @@
 'use client';
 
 import type { LucideIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { useCreatorSidebar } from '@/store/use-creator-sidebar';
 
@@ -22,12 +23,14 @@ export const NavItem = ({
   href,
   isActive,
 }: NavItemProps) => {
+  const router = useRouter();
   const { isExpanded } = useCreatorSidebar();
 
   return (
     <Button
       className='justify-start rounded-none px-[10px]'
-      variant={'ghost'}
+      variant={isActive ? 'secondary' : 'ghost'}
+      onClick={() => router.push(href)}
       asChild
     >
       <MotionDiv

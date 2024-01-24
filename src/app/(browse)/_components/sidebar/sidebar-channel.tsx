@@ -1,7 +1,8 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
+import { cn } from '@/lib/utils';
 import { useScreenSize } from '@/store/use-screen-size';
 import { useSidebar } from '@/store/use-sidebar';
 
@@ -9,8 +10,6 @@ import { MotionDiv } from '@/components/framer/motion-div';
 import { Button } from '@/components/ui/button';
 import { UserAvatar } from '@/components/user-avatar';
 import { UserStatus } from '@/components/user-status';
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 import { sideBarChannelVariants } from './animations';
 import { AvatarHint } from './avatar-hint';
 
@@ -50,7 +49,7 @@ export const SidebarChannel = ({
       asChild
     >
       <Button
-        variant={'ghost'}
+        variant={isActive ? 'secondary' : 'ghost'}
         className='rounded-none px-[14px]'
         onClick={() => router.push(href)}
         asChild
