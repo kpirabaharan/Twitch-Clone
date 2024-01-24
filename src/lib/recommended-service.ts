@@ -9,10 +9,11 @@ import { union } from 'drizzle-orm/pg-core';
 export const getRecommended = async () => {
   const self = await getSelf();
 
-  let recommended: User[] = [];
+  let recommended: (User & { stream: { isLive: boolean } | null })[] = [];
 
   if (!self) {
     recommended = await db.query.users.findMany({
+      with: { stream: { columns: { isLive: true } } },
       orderBy: [asc(users.createdAt)],
     });
   } else {
@@ -34,6 +35,8 @@ export const getRecommended = async () => {
           ),
         ),
       ),
+      with: { stream: { columns: { isLive: true } } },
+      orderBy: [asc(users.createdAt)],
     });
   }
 

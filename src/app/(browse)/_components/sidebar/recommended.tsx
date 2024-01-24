@@ -10,7 +10,7 @@ import { Hint } from '@/components/hint';
 import { SidebarChannel } from './sidebar-channel';
 
 interface RecommendedProps {
-  data: User[];
+  data: (User & { stream: { isLive: boolean } | null })[];
 }
 
 export const Recommended = ({ data }: RecommendedProps) => {
@@ -25,12 +25,7 @@ export const Recommended = ({ data }: RecommendedProps) => {
       <div className='flex w-[220px] flex-row items-center justify-between'>
         <p className='text-xs font-semibold uppercase'>Recommended Channels</p>
         {!isExpanded ? (
-          <Hint
-            delayDuration={500}
-            label={'Recommended Channels'}
-            side='right'
-            asChild
-          >
+          <Hint label={'Recommended Channels'} side='right' asChild>
             <div className='inline-flex h-10 w-10 items-center justify-center'>
               <VideoIcon className='h-5 w-5' />
             </div>
@@ -47,7 +42,7 @@ export const Recommended = ({ data }: RecommendedProps) => {
             key={index}
             userName={user.username}
             imageUrl={user.imageUrl}
-            isLive={true}
+            isLive={user.stream?.isLive}
           />
         ))}
       </ul>

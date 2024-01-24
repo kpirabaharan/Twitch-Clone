@@ -1,5 +1,5 @@
 interface UserStatusProps {
-  isLive: boolean;
+  isLive?: boolean;
   showFull?: boolean;
   numViewers?: number;
 }

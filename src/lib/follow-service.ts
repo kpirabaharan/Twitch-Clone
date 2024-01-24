@@ -23,7 +23,7 @@ export const getFollowing = async () => {
             .where(eq(block.blockingId, self.id)),
         ),
       ),
-      with: { following: true },
+      with: { following: { with: { stream: { columns: { isLive: true } } } } },
     });
 
     return followedUsers;

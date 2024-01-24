@@ -17,7 +17,7 @@ import { AvatarHint } from './avatar-hint';
 interface SidebarChannelProps {
   userName: string;
   imageUrl: string;
-  isLive: boolean;
+  isLive?: boolean;
 }
 
 export const SidebarChannel = ({

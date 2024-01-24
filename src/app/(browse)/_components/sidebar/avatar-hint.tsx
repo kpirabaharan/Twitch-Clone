@@ -12,7 +12,7 @@ interface AvatarHintProps extends PropsWithChildren {
   isExpanded: boolean;
   userName: string;
   description?: string;
-  isLive: boolean;
+  isLive?: boolean;
   asChild?: boolean;
   side?: 'top' | 'bottom' | 'left' | 'right';
   align?: 'start' | 'center' | 'end';

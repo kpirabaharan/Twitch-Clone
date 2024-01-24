@@ -25,26 +25,32 @@ export const NavItem = ({
   const { isExpanded } = useCreatorSidebar();
 
   return (
-    <Hint delayDuration={500} label={label} side='right' showHint={!isExpanded}>
-      <Button
-        className='justify-start rounded-none px-[10px]'
-        variant={'ghost'}
-        asChild
+    <Button
+      className='justify-start rounded-none px-[10px]'
+      variant={'ghost'}
+      asChild
+    >
+      <MotionDiv
+        initial={'closed'}
+        animate={isExpanded ? 'open' : 'closed'}
+        exit={isExpanded ? 'open' : 'closed'}
+        variants={navItemVariants}
+        className='flex h-[44px] w-60 cursor-pointer flex-row 
+        items-center justify-start gap-x-4'
       >
-        <MotionDiv
-          initial={'closed'}
-          animate={isExpanded ? 'open' : 'closed'}
-          exit={isExpanded ? 'open' : 'closed'}
-          variants={navItemVariants}
-          className='flex h-[44px] w-60 cursor-pointer flex-row 
-          items-center justify-start gap-x-4'
-        >
+        {!isExpanded ? (
+          <Hint label={label} side={'right'} asChild>
+            <div className='inline-flex h-10 w-10 items-center justify-center'>
+              <Icon className='h-5 w-5' />
+            </div>
+          </Hint>
+        ) : (
           <div className='inline-flex h-10 w-10 items-center justify-center'>
             <Icon className='h-5 w-5' />
           </div>
-          <p>{label}</p>
-        </MotionDiv>
-      </Button>
-    </Hint>
+        )}
+        <p>{label}</p>
+      </MotionDiv>
+    </Button>
   );
 };

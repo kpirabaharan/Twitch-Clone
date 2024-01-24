@@ -10,7 +10,9 @@ import { Hint } from '@/components/hint';
 import { SidebarChannel } from './sidebar-channel';
 
 interface FollowingProps {
-  data: (Follow & { following: User })[];
+  data: (Follow & {
+    following: User & { stream: { isLive: boolean } | null };
+  })[];
 }
 
 export const Following = ({ data }: FollowingProps) => {
@@ -25,12 +27,7 @@ export const Following = ({ data }: FollowingProps) => {
       <div className='flex w-[220px] flex-row items-center justify-between'>
         <p className='text-xs font-semibold uppercase'>Followed Channels</p>
         {!isExpanded ? (
-          <Hint
-            delayDuration={500}
-            label={'Followed Channels'}
-            side='right'
-            asChild
-          >
+          <Hint label={'Followed Channels'} side='right' asChild>
             <div className='inline-flex h-10 w-10 items-center justify-center'>
               <Heart className='h-5 w-5' />
             </div>
@@ -47,7 +44,7 @@ export const Following = ({ data }: FollowingProps) => {
             key={index}
             userName={item.following.username}
             imageUrl={item.following.imageUrl}
-            isLive={false}
+            isLive={item.following.stream?.isLive}
           />
         ))}
       </ul>
