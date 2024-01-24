@@ -1,4 +1,5 @@
 import { eq } from 'drizzle-orm';
+import { redirect } from 'next/navigation';
 
 import { db } from '@/db';
 import { users } from '@/db/schema';
@@ -17,23 +18,27 @@ export const getUserByUsername = async (username: string) => {
 };
 
 export const getSelfByUsername = async (username: string) => {
-  const self = await currentUser();
+  try {
+    const self = await currentUser();
 
-  if (!self || !self.username) {
-    throw new Error('Unauthorized');
+    if (!self || !self.username) {
+      throw new Error('Unauthorized');
+    }
+
+    const user = await db.query.users.findFirst({
+      where: eq(users.username, username),
+    });
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    if (self.username !== user.username) {
+      throw new Error('Unauthorized');
+    }
+
+    return user;
+  } catch (err) {
+    redirect('/');
   }
-
-  const user = await db.query.users.findFirst({
-    where: eq(users.username, username),
-  });
-
-  if (!user) {
-    throw new Error('User not found');
-  }
-
-  if (self.username !== user.username) {
-    throw new Error('Unauthorized');
-  }
-
-  return user;
 };

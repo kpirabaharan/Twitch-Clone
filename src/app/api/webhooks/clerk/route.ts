@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 import { Webhook } from 'svix';
 
 import { db } from '@/db';
-import { users } from '@/db/schema';
+import { stream, users } from '@/db/schema';
 
 export const POST = async (req: Request) => {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
@@ -58,12 +58,20 @@ export const POST = async (req: Request) => {
       const username = event.data.username!;
       const imageUrl = event.data.image_url;
 
-      await db
+      const [user] = await db
         .insert(users)
         .values({
           username,
           externalId,
           imageUrl,
+        })
+        .returning({ id: users.id });
+
+      await db
+        .insert(stream)
+        .values({
+          streamerId: user.id,
+          name: `${username}'s stream`,
         })
         .execute();
 
@@ -76,10 +84,16 @@ export const POST = async (req: Request) => {
       const username = event.data.username!;
       const imageUrl = event.data.image_url;
 
-      await db
+      const [user] = await db
         .update(users)
         .set({ externalId, username, imageUrl })
         .where(eq(users.externalId, externalId))
+        .returning({ id: users.id });
+
+      await db
+        .update(stream)
+        .set({ name: `${username}'s stream` })
+        .where(eq(stream.streamerId, user.id))
         .execute();
 
       console.log({ message: 'User updated' });

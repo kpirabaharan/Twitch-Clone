@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm';
 import {
+  boolean,
   index,
   pgTable,
   primaryKey,
@@ -17,11 +18,12 @@ export const users = pgTable('user', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 
-export const userRelations = relations(users, ({ many }) => ({
+export const userRelations = relations(users, ({ one, many }) => ({
   following: many(follow, { relationName: 'following' }),
   followedBy: many(follow, { relationName: 'followedBy' }),
   blocking: many(block, { relationName: 'blocking' }),
   blockedBy: many(block, { relationName: 'blockedBy' }),
+  stream: one(stream),
 }));
 
 export const follow = pgTable(
@@ -98,4 +100,39 @@ export const blockRelations = relations(block, ({ one }) => ({
     references: [users.id],
     relationName: 'blockedBy',
   }),
+}));
+
+export const stream = pgTable(
+  'stream',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    name: text('name').notNull(),
+    streamerId: uuid('streamer_id')
+      .notNull()
+      .references(() => users.id, { onDelete: 'cascade' }),
+    thumbnailUrl: text('thumbnail_url'),
+
+    ingressId: text('ingress_id').unique(),
+    serverUrl: text('server_url'),
+    streamKey: text('stream_key'),
+
+    isLive: boolean('is_live').default(false).notNull(),
+    isChatEnabled: boolean('is_chat_enabled').default(true).notNull(),
+    isChatDelayed: boolean('is_chat_delayed').default(false).notNull(),
+    isChatFollowersOnly: boolean('is_chat_followers_only')
+      .default(false)
+      .notNull(),
+
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  table => {
+    return {
+      streamerIndex: index('streamer_index').on(table.streamerId),
+      ingressIndex: index('ingress_index').on(table.ingressId),
+    };
+  },
+);
+
+export const streamRelations = relations(stream, ({ one }) => ({
+  streamer: one(users, { fields: [stream.streamerId], references: [users.id] }),
 }));
