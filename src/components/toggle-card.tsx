@@ -1,6 +1,6 @@
 'use client';
 
-import { useTransition } from 'react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 
 import { updateStream } from '@/actions/stream';
@@ -16,27 +16,25 @@ interface ToggleCardProps {
 }
 
 export const ToggleCard = ({ field, label, value }: ToggleCardProps) => {
-  const [isPending, startTransition] = useTransition();
+  const [switchValue, setSwitchValue] = useState(value);
 
-  const handleChange = (value: boolean) => {
-    startTransition(async () => {
-      try {
-        await updateStream({ [field]: value });
-      } catch (err: any) {
-        toast(err.message);
-      }
-    });
+  const handleChange = async () => {
+    const prevSwitchValue = switchValue;
+
+    try {
+      setSwitchValue(!prevSwitchValue);
+      await updateStream({ [field]: !prevSwitchValue });
+    } catch (err: any) {
+      setSwitchValue(prevSwitchValue);
+      toast(err.message);
+    }
   };
 
   return (
     <Card>
       <CardHeader className='flex flex-row items-center justify-between'>
         <CardTitle className='text-xl font-normal'>{label}</CardTitle>
-        <Switch
-          disabled={isPending}
-          checked={value}
-          onCheckedChange={() => handleChange(!value)}
-        />
+        <Switch checked={switchValue} onCheckedChange={() => handleChange()} />
       </CardHeader>
     </Card>
   );
