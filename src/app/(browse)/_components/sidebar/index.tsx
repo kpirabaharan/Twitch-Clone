@@ -7,8 +7,6 @@ import { Recommended } from './recommended';
 import { Toggle } from './toggle';
 import { Wrapper } from './wrapper';
 
-export const revalidate = 0;
-
 export const Sidebar = async () => {
   const following = await getFollowing();
   const recommended = await getRecommended();
