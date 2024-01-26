@@ -1,6 +1,7 @@
 import { getSelfStream } from '@/lib/stream-service';
 
-import { ToggleCard } from '@/components/toggle-card';
+import { ToggleCard } from '@/app/(dashboard)/u/[username]/chat/_components/toggle-card';
+import { PageTitle } from '../_components/page-title';
 
 const ChatPage = async () => {
   const stream = await getSelfStream();
@@ -10,9 +11,9 @@ const ChatPage = async () => {
   }
 
   return (
-    <div className='p-6'>
+    <>
       <div className='mb-4'>
-        <h1 className='text-2xl font-bold'>Chat Settings</h1>
+        <PageTitle title={'Chat Settings'} />
       </div>
       <div className='flex flex-col gap-y-4'>
         <ToggleCard
@@ -31,7 +32,7 @@ const ChatPage = async () => {
           value={stream.isChatFollowersOnly}
         />
       </div>
-    </div>
+    </>
   );
 };
 

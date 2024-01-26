@@ -27,7 +27,7 @@ export const Hint = ({
       <Tooltip delayDuration={delayDuration}>
         <TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
         <TooltipContent
-          className='relative left-2 bg-gray-200 text-accent'
+          className={`relative ${side}-2 bg-gray-200 text-accent`}
           side={side}
           align={align}
         >
