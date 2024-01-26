@@ -6,9 +6,9 @@ export const TwitchCloneLogo = () => {
     <Link href={'/'}>
       <div className='inline-flex flex-row items-center gap-x-2'>
         <div className='inline-flex h-8 w-8 items-center justify-center rounded-full bg-indigo-200'>
-          <TwitchIcon className='text-tertiary h-5 w-5' />
+          <TwitchIcon className='h-5 w-5 text-tertiary' />
         </div>
-        <p className='text-tertiary hidden text-xl font-semibold lg:flex'>
+        <p className='hidden text-xl font-semibold text-tertiary lg:flex'>
           Twitch Clone
         </p>
       </div>

@@ -1,7 +1,7 @@
 import { getSelfStream } from '@/lib/stream-service';
 
-import { Button } from '@/components/ui/button';
 import { PageTitle } from '../_components/page-title';
+import { ConnectModal } from './_components/connect-modal';
 import { KeyCard } from './_components/key-card';
 import { UrlCard } from './_components/url-card';
 
@@ -16,7 +16,7 @@ const KeysPage = async () => {
     <>
       <div className='mb-4 flex items-center justify-between'>
         <PageTitle title={'Keys & URLs'} />
-        <Button variant={'default'}>Generate</Button>
+        <ConnectModal />
       </div>
       <div className='flex flex-col gap-y-4'>
         <UrlCard url={stream.serverUrl} />

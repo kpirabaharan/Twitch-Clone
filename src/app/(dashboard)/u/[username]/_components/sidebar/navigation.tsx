@@ -40,7 +40,7 @@ export const Navigation = () => {
   ];
 
   return (
-    <ul className='flex w-full flex-col overflow-hidden mt-2'>
+    <ul className='mt-2 flex w-full flex-col overflow-hidden'>
       {routes.map((route, index) => (
         <NavItem
           key={index}

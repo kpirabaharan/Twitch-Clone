@@ -4,6 +4,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 
 interface HintProps {
   label: string;
@@ -27,7 +28,13 @@ export const Hint = ({
       <Tooltip delayDuration={delayDuration}>
         <TooltipTrigger asChild={asChild}>{children}</TooltipTrigger>
         <TooltipContent
-          className={`relative ${side}-2 bg-gray-200 text-accent`}
+          className={cn(
+            'relative bg-gray-200 text-accent',
+            side === 'top' && 'bottom-3',
+            side === 'bottom' && 'top-3',
+            side === 'left' && 'right-3',
+            side === 'right' && 'left-3',
+          )}
           side={side}
           align={align}
         >

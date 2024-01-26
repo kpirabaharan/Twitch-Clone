@@ -27,6 +27,7 @@ export const KeyCard = ({ data }: KeyCardProps) => {
         />
         <div>
           <Button
+            disabled={!data}
             onClick={() => setIsShow(prev => !prev)}
             variant={'link'}
             size={'sm'}
