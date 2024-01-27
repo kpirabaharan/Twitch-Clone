@@ -1,7 +1,8 @@
-import { and, asc, eq, ne, notInArray } from 'drizzle-orm';
+import { and, asc, eq, inArray, ne, notInArray } from 'drizzle-orm';
+import { orderBy } from 'lodash';
 
 import { db } from '@/db';
-import { block, follow, users } from '@/db/schema';
+import { block, follow, stream, users } from '@/db/schema';
 import { User } from '@/db/types';
 import { getSelf } from '@/lib/auth-service';
 import { union } from 'drizzle-orm/pg-core';
@@ -13,6 +14,13 @@ export const getRecommended = async () => {
 
   if (!self) {
     recommended = await db.query.users.findMany({
+      where: inArray(
+        users.id,
+        db
+          .select({ id: stream.streamerId })
+          .from(stream)
+          .where(eq(stream.isLive, true)),
+      ),
       with: { stream: { columns: { isLive: true } } },
       orderBy: [asc(users.createdAt)],
     });
@@ -33,6 +41,13 @@ export const getRecommended = async () => {
               .from(block)
               .where(eq(block.blockerId, self.id)),
           ),
+        ),
+        inArray(
+          users.id,
+          db
+            .select({ id: stream.streamerId })
+            .from(stream)
+            .where(eq(stream.isLive, true)),
         ),
       ),
       with: { stream: { columns: { isLive: true } } },
