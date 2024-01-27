@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { PropsWithChildren } from 'react';
 
-import { getSelfByUsername } from '@/lib/user-service';
+import { getSelf } from '@/lib/auth-service';
 
 import { Container } from './_components/container';
 import { Navbar } from './_components/navbar';
@@ -12,7 +12,7 @@ interface CreatorLayoutProps extends PropsWithChildren {
 }
 
 const CreatorLayout = async ({ params, children }: CreatorLayoutProps) => {
-  const self = await getSelfByUsername(params.username);
+  const self = await getSelf();
 
   if (!self) {
     return redirect('/');
