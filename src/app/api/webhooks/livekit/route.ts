@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { db } from '@/db';
-import { stream } from '@/db/schema';
+import { stream, users } from '@/db/schema';
 
 const receiver = new WebhookReceiver(
   process.env.LIVEKIT_API_KEY,
@@ -27,22 +27,44 @@ export const POST = async (req: Request) => {
 
   switch (event.event) {
     case 'ingress_started': {
-      if (event.ingressInfo?.ingressId)
-        await db
+      if (event.ingressInfo?.ingressId) {
+        const [streamer] = await db
           .update(stream)
           .set({
             isLive: true,
           })
-          .where(eq(stream.ingressId, event.ingressInfo.ingressId));
+          .where(eq(stream.ingressId, event.ingressInfo.ingressId))
+          .returning({ id: stream.streamerId });
+
+        const user = await db.query.users.findFirst({
+          where: eq(users.id, streamer.id),
+        });
+
+        if (user) {
+          console.log({ livekit_webhook: `${user.username} went live` });
+        }
+      }
+      break;
     }
     case 'ingress_ended': {
-      if (event.ingressInfo?.ingressId)
-        await db
+      if (event.ingressInfo?.ingressId) {
+        const [streamer] = await db
           .update(stream)
           .set({
             isLive: false,
           })
-          .where(eq(stream.ingressId, event.ingressInfo.ingressId));
+          .where(eq(stream.ingressId, event.ingressInfo.ingressId))
+          .returning({ id: stream.streamerId });
+
+        const user = await db.query.users.findFirst({
+          where: eq(users.id, streamer.id),
+        });
+
+        if (user) {
+          console.log({ livekit_webhook: `${user.username} ended stream` });
+        }
+      }
+      break;
     }
   }
 

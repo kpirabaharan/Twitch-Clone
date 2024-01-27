@@ -75,7 +75,7 @@ export const POST = async (req: Request) => {
         })
         .execute();
 
-      console.log({ message: 'User created' });
+      console.log({ clerk_webhook: 'User created' });
 
       break;
     }
@@ -96,7 +96,7 @@ export const POST = async (req: Request) => {
         .where(eq(stream.streamerId, user.id))
         .execute();
 
-      console.log({ message: 'User updated' });
+      console.log({ clerk_webhook: 'User updated' });
 
       break;
     }
@@ -105,7 +105,7 @@ export const POST = async (req: Request) => {
 
       await db.delete(users).where(eq(users.externalId, externalId)).execute();
 
-      console.log({ message: 'User deleted' });
+      console.log({ clerk_webhook: 'User deleted' });
 
       break;
     }
