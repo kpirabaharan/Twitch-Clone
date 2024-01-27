@@ -1,6 +1,11 @@
 'use client';
 
+import { IngressInput } from 'livekit-server-sdk';
 import { AlertTriangle } from 'lucide-react';
+import { ElementRef, useRef, useState, useTransition } from 'react';
+import { toast } from 'sonner';
+
+import { createIngress } from '@/actions/ingress';
 
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import {
@@ -23,7 +28,29 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
+const RTMP = String(IngressInput.RTMP_INPUT);
+const WHIP = String(IngressInput.WHIP_INPUT);
+
+type IngressType = typeof RTMP | typeof WHIP;
+
 export const ConnectModal = () => {
+  const closeRef = useRef<ElementRef<'button'>>(null);
+  const [isPending, startTransition] = useTransition();
+  const [ingressType, setIngressType] = useState<IngressType>(RTMP);
+
+  const onSubmit = () => {
+    startTransition(async () => {
+      try {
+        await createIngress(parseInt(ingressType, 10));
+        toast.success('Ingress Created');
+      } catch (err: any) {
+        toast.error(err.message);
+      } finally {
+        closeRef.current?.click();
+      }
+    });
+  };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -33,13 +60,17 @@ export const ConnectModal = () => {
         <AlertDialogHeader>
           <AlertDialogTitle>Generate Connection</AlertDialogTitle>
         </AlertDialogHeader>
-        <Select>
+        <Select
+          disabled={isPending}
+          value={ingressType}
+          onValueChange={value => setIngressType(value)}
+        >
           <SelectTrigger>
             <SelectValue placeholder='Ingress Type' />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='RTMP'>RTMP</SelectItem>
-            <SelectItem value='WHIP'>WHIP</SelectItem>
+            <SelectItem value={RTMP}>RTMP</SelectItem>
+            <SelectItem value={WHIP}>WHIP</SelectItem>
           </SelectContent>
         </Select>
         <AlertDialogDescription>
@@ -53,8 +84,12 @@ export const ConnectModal = () => {
           </Alert>
         </AlertDialogDescription>
         <AlertDialogFooter className='sm:justify-between'>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => {}}>Generate</AlertDialogAction>
+          <AlertDialogCancel ref={closeRef} disabled={isPending}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction disabled={isPending} onClick={onSubmit}>
+            Generate
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

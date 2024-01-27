@@ -1,7 +1,6 @@
 'use server';
 
 import { eq } from 'drizzle-orm';
-import { revalidatePath } from 'next/cache';
 
 import { db } from '@/db';
 import { stream } from '@/db/schema';
@@ -39,7 +38,7 @@ export const updateStream = async (values: Partial<Stream>) => {
       .where(eq(stream.id, selfStream.id))
       .returning();
 
-    revalidatePath(`/u/${self.username}`, 'layout');
+    // revalidatePath(`/u/${self.username}`, 'layout');
 
     return { updatedStream, message: 'Chat settings updated' };
   } catch (err) {

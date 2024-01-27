@@ -11,5 +11,10 @@
   "bracketSpacing": true,
   "bracketSameLine": false,
   "proseWrap": "preserve",
-  "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-tailwindcss", "prettier-plugin-packagejson"]
+  "organizeImportsSkipDestructiveCodeActions": true,
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-packagejson"
+  ]
 }

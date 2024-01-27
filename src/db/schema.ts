@@ -113,8 +113,8 @@ export const stream = pgTable(
     thumbnailUrl: text('thumbnail_url'),
 
     ingressId: text('ingress_id').unique(),
-    serverUrl: text('server_url'),
-    streamKey: text('stream_key'),
+    serverUrl: text('server_url').unique(),
+    streamKey: text('stream_key').unique(),
 
     isLive: boolean('is_live').default(false).notNull(),
     isChatEnabled: boolean('is_chat_enabled').default(true).notNull(),

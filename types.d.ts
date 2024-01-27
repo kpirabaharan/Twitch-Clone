@@ -12,5 +12,9 @@ declare namespace NodeJS {
     DB_NAME: string;
     DB_USER: string;
     DB_PASSWORD: string;
+    LIVEKIT_API_URL: string;
+    LIVEKIT_API_KEY: string;
+    LIVEKIT_SECRET_KEY: string;
+    NEXT_PUBLIC_LIVEKIT_WS_URL: string;
   }
 }
