@@ -22,7 +22,7 @@ export const Sidebar = async () => {
 
 export const SidebarSkeleton = () => {
   return (
-    <ul className='flex w-[50px] flex-col items-center gap-y-2 border-r bg-[#1f1f23] pt-2 shadow-sm'>
+    <ul className='flex w-[50px] flex-col items-center gap-y-2 border-r bg-card pt-2 shadow-sm'>
       {[...Array(10)].map((_, index) => (
         <Skeleton key={index} className='h-8 w-8 rounded-full' />
       ))}

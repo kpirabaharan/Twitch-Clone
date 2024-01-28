@@ -5,7 +5,7 @@ export const Navbar = () => {
   return (
     <div
       className='fixed top-0 z-50 flex h-14 w-full items-center justify-between
-     bg-[#252731] px-2 shadow-sm lg:px-4'
+      border-b bg-card px-2 shadow-sm lg:px-4'
     >
       <div className='w-[111px] lg:w-fit'>
         <TwitchCloneLogo />

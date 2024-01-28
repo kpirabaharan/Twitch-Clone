@@ -1,5 +1,4 @@
 import { and, asc, eq, inArray, ne, notInArray } from 'drizzle-orm';
-import { orderBy } from 'lodash';
 
 import { db } from '@/db';
 import { block, follow, stream, users } from '@/db/schema';

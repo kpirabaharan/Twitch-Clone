@@ -32,4 +32,3 @@ export const mainVariants: Variants = {
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
   },
 };
-

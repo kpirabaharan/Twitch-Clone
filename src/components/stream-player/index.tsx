@@ -1,17 +1,10 @@
 'use client';
 
-import {
-  ControlBar,
-  GridLayout,
-  LiveKitRoom,
-  ParticipantTile,
-  RoomAudioRenderer,
-  VideoConference,
-} from '@livekit/components-react';
+import { LiveKitRoom } from '@livekit/components-react';
 
 import { Stream, User } from '@/db/types';
 import { useViewerToken } from '@/hooks/use-viewer-token';
-import { Chat } from '../chat';
+
 import { Video } from './video';
 
 interface StreamPlayerProps {
@@ -42,12 +35,11 @@ export const StreamPlayer = ({
         xl:grid-cols-4 2xl:grid-cols-6'
       >
         <div
-          className='no-scrollbar col-span-1 pb-10 
-          lg:col-span-2 lg:overflow-y-hidden xl:col-span-3 2xl:col-span-5'
+          className='no-scrollbar col-span-1 lg:col-span-2 
+          xl:col-span-3 2xl:col-span-5'
         >
           <Video hostName={user.username} hostId={user.id} />
         </div>
-        <Chat />
       </LiveKitRoom>
     </>
   );

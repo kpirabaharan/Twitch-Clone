@@ -33,6 +33,8 @@ export const Video = ({ hostName, hostId }: VideoProps) => {
   }
 
   return (
-    <div className='group relative aspect-video max-h-[820px]'>{content}</div>
+    <div className='group relative z-0 aspect-video max-h-[828px]'>
+      {content}
+    </div>
   );
 };
