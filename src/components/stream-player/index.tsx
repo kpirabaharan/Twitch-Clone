@@ -11,8 +11,8 @@ import {
 
 import { Stream, User } from '@/db/types';
 import { useViewerToken } from '@/hooks/use-viewer-token';
-import { Video } from './video';
 import { Chat } from '../chat';
+import { Video } from './video';
 
 interface StreamPlayerProps {
   user: User;
@@ -38,14 +38,12 @@ export const StreamPlayer = ({
         audio={true}
         token={viewerToken}
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL}
-        className='grid h-full grid-cols-1 lg:grid-cols-3 lg:gap-y-0 
+        className='grid grid-cols-1 gap-y-4 lg:grid-cols-3 lg:gap-y-0 
         xl:grid-cols-4 2xl:grid-cols-6'
-        data-lk-theme='default'
-        style={{ height: '100vh' }}
       >
         <div
-          className='no-scrollbar col-span-1 space-y-4 pb-10 
-          lg:col-span-2 lg:overflow-y-auto xl:col-span-3 2xl:col-span-5'
+          className='no-scrollbar col-span-1 pb-10 
+          lg:col-span-2 lg:overflow-y-hidden xl:col-span-3 2xl:col-span-5'
         >
           <Video hostName={user.username} hostId={user.id} />
         </div>

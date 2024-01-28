@@ -4,7 +4,8 @@ import {
   useTracks,
 } from '@livekit/components-react';
 import { ConnectionState, Track } from 'livekit-client';
-import { hostname } from 'os';
+
+import { LiveVideo } from './live-video';
 import { LoadingVideo } from './loading-video';
 import { OfflineVideo } from './offline-video';
 
@@ -28,8 +29,10 @@ export const Video = ({ hostName, hostId }: VideoProps) => {
   } else if (!participant || tracks.length === 0) {
     content = <LoadingVideo label={connectionState} />;
   } else {
-    content = <p>Live Video</p>;
+    content = <LiveVideo participant={participant} />;
   }
 
-  return <div className='group relative aspect-video'>{content}</div>;
+  return (
+    <div className='group relative aspect-video max-h-[820px]'>{content}</div>
+  );
 };
