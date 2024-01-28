@@ -55,8 +55,8 @@ export const SidebarChannel = ({
         asChild
       >
         <MotionDiv
-          className='overflow- flex h-[48px] w-60 cursor-pointer flex-row 
-          items-center gap-x-4'
+          className='flex h-[48px] w-60 cursor-pointer flex-row items-center 
+          gap-x-4'
           initial={animationCondition}
           animate={animationCondition}
           exit={animationCondition}

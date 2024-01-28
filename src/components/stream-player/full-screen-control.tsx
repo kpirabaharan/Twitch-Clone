@@ -12,15 +12,12 @@ export const FullScreenControl = ({
   onClick,
 }: FullScreenControlProps) => {
   const Icon = isFullScreen ? MinimizeIcon : MaximizeIcon;
-  const label = isFullScreen ? 'Exit FullScreen' : 'Enter FullScreen';
+  const label = isFullScreen ? 'Exit Full Screen (esc)' : 'Full Screen (f)';
 
   return (
     <div className='inline-flex items-center justify-center'>
       <Hint label={label} asChild>
-        <button
-          onClick={onClick}
-          className='group/item rounded-lg p-1.5 text-white'
-        >
+        <button onClick={onClick} className='group/item p-1.5 text-white'>
           <Icon className='group-hover/item:scale-110' size={20} />
         </button>
       </Hint>

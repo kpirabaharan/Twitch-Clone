@@ -23,8 +23,7 @@ export const useFullScreen = (ref: RefObject<HTMLDivElement>) => {
   // Toggle fullscreen when f key is pressed
   useEventListener(
     'keydown',
-    (event: KeyboardEvent) =>
-      event.key === 'f' && !isFullScreen && toggleFullScreen(),
+    (event: KeyboardEvent) => event.key === 'f' && toggleFullScreen(),
   );
 
   return { isFullScreen, toggleFullScreen };

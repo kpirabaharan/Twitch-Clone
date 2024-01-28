@@ -27,8 +27,6 @@ export const StreamPlayer = ({
   return (
     <>
       <LiveKitRoom
-        video={true}
-        audio={true}
         token={viewerToken}
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL}
         className='grid grid-cols-1 gap-y-4 lg:grid-cols-3 lg:gap-y-0 

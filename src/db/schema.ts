@@ -111,6 +111,7 @@ export const stream = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     thumbnailUrl: text('thumbnail_url'),
+    game: text('game'),
 
     ingressId: text('ingress_id').unique(),
     serverUrl: text('server_url').unique(),

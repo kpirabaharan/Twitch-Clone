@@ -14,10 +14,12 @@ export const sideBarVariants: Variants = {
 export const navItemVariants: Variants = {
   open: {
     translateX: 0,
+    width: 240,
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
   },
   closed: {
     translateX: 180,
+    width: 60,
     transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
   },
 };
