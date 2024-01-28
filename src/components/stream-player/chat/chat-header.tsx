@@ -1,6 +1,7 @@
 'use client';
 
 import { ChatToggle } from '@/components/stream-player/chat/chat-toggle';
+import { VariantToggle } from '@/components/stream-player/chat/variant-toggle';
 
 export const ChatHeader = () => {
   return (
@@ -9,7 +10,9 @@ export const ChatHeader = () => {
         <ChatToggle />
       </div>
       <p className='text-center font-semibold text-primary'>Stream Chat</p>
-      {/* // TODO: Toggle Chat Community */}
+      <div className='absolute right-1 top-1'>
+        <VariantToggle />
+      </div>
     </div>
   );
 };
