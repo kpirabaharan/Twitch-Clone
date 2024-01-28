@@ -6,6 +6,7 @@ import { useFullScreen } from '@/hooks/use-full-screen';
 
 import { FullScreenControl } from '@/components/stream-player/full-screen-control';
 import { VolumeControl } from '@/components/stream-player/volume-control';
+import { useVolume } from '@/hooks/use-volume';
 
 interface LiveVideoProps {
   participant: Participant;
@@ -15,7 +16,7 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { isFullScreen, toggleFullScreen } = useFullScreen(wrapperRef);
-  const [volume, setVolume] = useState(50);
+  const { volume, onVolumeChange, toggleMute } = useVolume(videoRef);
 
   useTracks([Track.Source.Camera, Track.Source.Microphone])
     .filter(track => track.participant.identity === participant.identity)
@@ -23,17 +24,6 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
       track =>
         videoRef.current && track.publication.track?.attach(videoRef.current),
     );
-
-  const onVolumeChange = (volume: number) => {
-    videoRef.current!.muted = volume === 0;
-    videoRef.current!.volume = volume / 100;
-    setVolume(volume);
-  };
-  const toggleMute = () => {
-    videoRef.current!.muted = volume !== 0;
-    videoRef.current!.volume = volume === 0 ? 1 : 0;
-    setVolume(volume === 0 ? 100 : 0);
-  };
 
   return (
     <div ref={wrapperRef} className='relative flex h-full'>
