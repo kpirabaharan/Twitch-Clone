@@ -1,8 +1,6 @@
 import { getSelf } from '@/lib/auth-service';
 import { getSelfStream } from '@/lib/stream-service';
 
-import { StreamPlayer } from '@/components/stream-player';
-
 interface CreatorPageProps {
   params: {
     username: string;
@@ -19,7 +17,7 @@ const CreatorPage = async ({ params }: CreatorPageProps) => {
 
   return (
     <div className='h-full'>
-      <StreamPlayer user={user} stream={stream} isFollowing />
+      {/* <StreamPlayer user={user} stream={stream} isFollowing /> */}
     </div>
   );
 };

@@ -21,7 +21,7 @@ export const isBlockingUser = async (id: string) => {
     }
 
     if (otherUser.id === self.id) {
-      return true;
+      return false;
     }
 
     const blockRecord = await db.query.block.findFirst({

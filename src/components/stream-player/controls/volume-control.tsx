@@ -11,27 +11,27 @@ interface VolumeControlProps {
   volume: number;
 }
 
+const variants: Variants = {
+  open: {
+    width: 150,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  closed: {
+    width: 32,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
 export const VolumeControl = ({
   onToggle,
   onVolumeChange,
   volume,
 }: VolumeControlProps) => {
   const [isShowVolumeBar, setIsShowVolumeBar] = useState(false);
-
-  const variants: Variants = {
-    open: {
-      width: 150,
-      transition: {
-        duration: 0.5,
-      },
-    },
-    closed: {
-      width: 32,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
 
   let Volume;
   switch (true) {

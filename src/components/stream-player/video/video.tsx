@@ -27,13 +27,13 @@ export const Video = ({ hostName, hostId }: VideoProps) => {
   if (!participant && connectionState === ConnectionState.Connected) {
     content = <OfflineVideo hostName={hostName} />;
   } else if (!participant || tracks.length === 0) {
-    content = <LoadingVideo label={connectionState} />;
+    content = <LoadingVideo />;
   } else {
     content = <LiveVideo participant={participant} />;
   }
 
   return (
-    <div className='group relative z-0 aspect-video max-h-[828px]'>
+    <div className='group relative aspect-video border-b lg:max-h-[calc(100vh-56px)]'>
       {content}
     </div>
   );

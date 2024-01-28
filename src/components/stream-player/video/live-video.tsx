@@ -4,8 +4,8 @@ import { useRef, useState } from 'react';
 
 import { useFullScreen } from '@/hooks/use-full-screen';
 
-import { FullScreenControl } from '@/components/stream-player/full-screen-control';
-import { VolumeControl } from '@/components/stream-player/volume-control';
+import { FullScreenControl } from '@/components/stream-player/controls/full-screen-control';
+import { VolumeControl } from '@/components/stream-player/controls/volume-control';
 import { useVolume } from '@/hooks/use-volume';
 
 interface LiveVideoProps {

@@ -13,13 +13,14 @@ export const getRecommended = async () => {
 
   if (!self) {
     recommended = await db.query.users.findMany({
-      where: inArray(
-        users.id,
-        db
-          .select({ id: stream.streamerId })
-          .from(stream)
-          .where(eq(stream.isLive, true)),
-      ),
+      // TODO: Uncomment Code Below
+      // where: inArray(
+      //   users.id,
+      //   db
+      //     .select({ id: stream.streamerId })
+      //     .from(stream)
+      //     .where(eq(stream.isLive, true)),
+      // ),
       with: { stream: { columns: { isLive: true } } },
       orderBy: [asc(users.createdAt)],
     });
@@ -41,13 +42,14 @@ export const getRecommended = async () => {
               .where(eq(block.blockerId, self.id)),
           ),
         ),
-        inArray(
-          users.id,
-          db
-            .select({ id: stream.streamerId })
-            .from(stream)
-            .where(eq(stream.isLive, true)),
-        ),
+        // TODO: Uncomment Code Below
+        // inArray(
+        //   users.id,
+        //   db
+        //     .select({ id: stream.streamerId })
+        //     .from(stream)
+        //     .where(eq(stream.isLive, true)),
+        // ),
       ),
       with: { stream: { columns: { isLive: true } } },
       orderBy: [asc(users.createdAt)],

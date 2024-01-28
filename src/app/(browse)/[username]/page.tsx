@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation';
 
-import { isBlockedByUser, isBlockingUser } from '@/lib/block-service';
+import { isBlockedByUser } from '@/lib/block-service';
 import { isFollowingUser } from '@/lib/follow-service';
+import { getStreamByUserId } from '@/lib/stream-service';
 import { getUserByUsername } from '@/lib/user-service';
 
-import { BlockButton } from './_components/block-button';
-import { FollowButton } from './_components/follow-button';
+import { StreamPlayer } from '@/components/stream-player';
 
 interface UserPageParams {
   params: {
@@ -15,28 +15,17 @@ interface UserPageParams {
 
 const UserPage = async ({ params }: UserPageParams) => {
   const user = await getUserByUsername(params.username);
+  const stream = await getStreamByUserId(user.id);
+  const isFollowing = await isFollowingUser(user.id);
+  const isBlockedBy = await isBlockedByUser(user.id);
 
-  if (!user) {
+  if (isBlockedBy) {
     notFound();
   }
 
-  const isFollowing = await isFollowingUser(user.id);
-  const isBlocking = await isBlockingUser(user.id);
-  const isBlockedBy = await isBlockedByUser(user.id);
-
-  // if (isBlockedBy) {
-  //   notFound();
-  // }
-
   return (
-    <div className='flex h-full flex-col items-center justify-center gap-y-4'>
-      <p>Username: {user.username}</p>
-      <p>User ID: {user.id}</p>
-      <p>Is Following: {isFollowing.toString()}</p>
-      <p>Is Blocking: {isBlocking.toString()}</p>
-      <p>Is Blocked By: {isBlockedBy.toString()}</p>
-      <FollowButton userId={user.id} isFollowing={isFollowing} />
-      <BlockButton userId={user.id} isBlocking={isBlocking} />
+    <div className='flex h-full flex-col items-center gap-y-4'>
+      <StreamPlayer user={user} stream={stream} isFollowing={isFollowing} />
     </div>
   );
 };

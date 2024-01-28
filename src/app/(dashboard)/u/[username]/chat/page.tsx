@@ -11,7 +11,7 @@ const ChatPage = async () => {
   }
 
   return (
-    <>
+    <div className='p-6'>
       <div className='mb-4'>
         <PageTitle title={'Chat Settings'} />
       </div>
@@ -32,7 +32,7 @@ const ChatPage = async () => {
           value={stream.isChatFollowersOnly}
         />
       </div>
-    </>
+    </div>
   );
 };
 

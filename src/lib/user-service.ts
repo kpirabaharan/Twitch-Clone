@@ -2,6 +2,7 @@ import { eq } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { users } from '@/db/schema';
+import { notFound } from 'next/navigation';
 
 export const getUserById = async (id: string) => {
   const user = await db.query.users.findFirst({
@@ -21,7 +22,7 @@ export const getUserByUsername = async (username: string) => {
   });
 
   if (!user) {
-    return null;
+    notFound();
   }
 
   return user;

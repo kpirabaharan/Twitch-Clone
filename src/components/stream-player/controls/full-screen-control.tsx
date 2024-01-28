@@ -1,6 +1,6 @@
 import { MaximizeIcon, MinimizeIcon } from 'lucide-react';
 
-import { Hint } from '../hint';
+import { Hint } from '../../hint';
 
 interface FullScreenControlProps {
   isFullScreen: boolean;

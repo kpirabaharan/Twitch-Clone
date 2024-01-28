@@ -28,7 +28,7 @@ export const Container = ({ children }: ContainerProps) => {
 
   return (
     <MotionDiv
-      className='flex-1 p-6'
+      className='flex-1'
       initial={'closed'}
       animate={isExpanded ? 'open' : 'closed'}
       exit={isExpanded ? 'open' : 'closed'}

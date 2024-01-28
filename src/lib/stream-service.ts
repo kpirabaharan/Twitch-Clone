@@ -21,7 +21,20 @@ export const getSelfStream = async () => {
     }
 
     return userStream;
-  } catch (err) {
-    return null;
+  } catch (err: any) {
+    console.log(`Stream: ${err.message}`);
+    throw new Error(err.message);
   }
+};
+
+export const getStreamByUserId = async (id: string) => {
+  const userStream = await db.query.stream.findFirst({
+    where: eq(stream.streamerId, id),
+  });
+
+  if (!userStream) {
+    throw new Error('Stream not found');
+  }
+
+  return userStream;
 };
