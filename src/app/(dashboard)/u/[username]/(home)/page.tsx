@@ -1,6 +1,7 @@
-import { StreamPlayer } from '@/components/stream-player';
 import { getSelf } from '@/lib/auth-service';
 import { getSelfStream } from '@/lib/stream-service';
+
+import { StreamPlayer } from '@/components/stream-player';
 
 interface CreatorPageProps {
   params: {
