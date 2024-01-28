@@ -8,7 +8,10 @@ import { cn } from '@/lib/utils';
 import { useChatSidebar } from '@/store/use-chat-sidebar';
 
 import { Chat } from '@/components/stream-player/chat';
+import { ChatToggle } from '@/components/stream-player/chat/chat-toggle';
 import { Video } from '@/components/stream-player/video/video';
+import { Variants } from 'framer-motion';
+import { MotionDiv } from '../framer/motion-div';
 
 interface StreamPlayerProps {
   user: User;
@@ -24,34 +27,53 @@ export const StreamPlayer = ({
   const { identity, name, viewerToken } = useViewerToken(user.id);
   const { isExpanded } = useChatSidebar();
 
+  const variants: Variants = {
+    show: {
+      x: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+    hide: {
+      x: 100,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
+
   if (!viewerToken || !identity || !name) {
     return <div></div>;
   }
 
   return (
     <>
+      <MotionDiv
+        className='absolute right-4 top-4 z-50 hidden lg:block'
+        initial='hide'
+        animate={!isExpanded ? 'show' : 'hide'}
+        exit={!isExpanded ? 'show' : 'hide'}
+        variants={variants}
+      >
+        <ChatToggle />
+      </MotionDiv>
       <LiveKitRoom
         token={viewerToken}
         serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_WS_URL}
-        className={cn(
-          'flex h-full w-full flex-col gap-y-0 overflow-y-clip lg:grid lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5',
-          !isExpanded && 'lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2',
-        )}
+        className='flex h-full w-full flex-col lg:flex-row'
       >
-        <div className='lg:col-span-2 xl:col-span-3 2xl:col-span-4'>
+        <div className='w-full'>
           <Video hostName={user.username} hostId={user.id} />
         </div>
-        <div className={cn('col-span-1 h-full', !isExpanded && 'hidden')}>
-          <Chat
-            hostId={user.id}
-            hostName={user.username}
-            viewerName={name}
-            isFollowing={isFollowing}
-            isChatEnabled={stream.isChatEnabled}
-            isChatDelayed={stream.isChatDelayed}
-            isChatFollowersOnly={stream.isChatFollowersOnly}
-          />
-        </div>
+        <Chat
+          hostId={user.id}
+          hostName={user.username}
+          viewerName={name}
+          isFollowing={isFollowing}
+          isChatEnabled={stream.isChatEnabled}
+          isChatDelayed={stream.isChatDelayed}
+          isChatFollowersOnly={stream.isChatFollowersOnly}
+        />
       </LiveKitRoom>
     </>
   );

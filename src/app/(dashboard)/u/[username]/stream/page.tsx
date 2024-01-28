@@ -18,7 +18,7 @@ const StreamPage = async ({ params }: StreamPageProps) => {
   }
 
   return (
-    <div className='h-full'>
+    <div className='h-full relative'>
       <StreamPlayer user={user} stream={stream} isFollowing />
     </div>
   );
