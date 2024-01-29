@@ -47,7 +47,7 @@ export const Chat = ({
 
   // Chat Input
   const [value, setValue] = useState('');
-  const { chatMessages: messages, send, isSending } = useChat();
+  const { chatMessages: messages, send } = useChat();
 
   useEffect(() => {
     onExpand();

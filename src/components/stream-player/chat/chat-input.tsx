@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { ChatInfo } from '@/components/stream-player/chat/chat-info';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useTyping } from '@/store/use-typing';
 
 interface ChatInputProps {
   onSubmit: () => void;
@@ -26,6 +27,7 @@ export const ChatInput = ({
   isFollowing,
 }: ChatInputProps) => {
   const [isDelayBlocked, setIsDelayBlocked] = useState(false);
+  const { onFocus, onBlur } = useTyping();
 
   const isFollowersOnlyAndNotFollowing = isFollowersOnly && !isFollowing;
   const isDisabled =
@@ -65,9 +67,11 @@ export const ChatInput = ({
           isFollowersOnly={isFollowersOnlyAndNotFollowing}
         />
         <Input
-          onChange={handleChange}
           value={value}
+          onChange={handleChange}
           disabled={isDisabled}
+          onFocus={onFocus}
+          onBlur={onBlur}
           placeholder='Send a message'
           className={cn(
             'border border-white/10',

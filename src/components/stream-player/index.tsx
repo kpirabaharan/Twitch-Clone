@@ -1,17 +1,16 @@
 'use client';
 
 import { LiveKitRoom } from '@livekit/components-react';
+import { Variants } from 'framer-motion';
 
 import { Stream, User } from '@/db/types';
 import { useViewerToken } from '@/hooks/use-viewer-token';
-import { cn } from '@/lib/utils';
 import { useChatSidebar } from '@/store/use-chat-sidebar';
 
+import { MotionDiv } from '@/components/framer/motion-div';
 import { Chat } from '@/components/stream-player/chat';
 import { ChatToggle } from '@/components/stream-player/chat/chat-toggle';
 import { Video } from '@/components/stream-player/video/video';
-import { Variants } from 'framer-motion';
-import { MotionDiv } from '../framer/motion-div';
 
 interface StreamPlayerProps {
   user: User;
