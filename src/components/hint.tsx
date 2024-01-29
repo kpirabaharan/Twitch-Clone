@@ -30,7 +30,7 @@ export const Hint = ({
         <TooltipContent
           className={cn(
             'relative bg-gray-200 text-accent',
-            side === 'top' && 'bottom-3',
+            side === 'top' && 'bottom-0',
             side === 'bottom' && 'top-3',
             side === 'left' && 'right-3',
             side === 'right' && 'left-3',

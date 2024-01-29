@@ -29,6 +29,7 @@
     "boring-name-generator": "^1.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "date-fns": "^3.3.1",
     "dotenv": "^16.4.1",
     "drizzle-orm": "^0.29.3",
     "framer-motion": "^11.0.3",

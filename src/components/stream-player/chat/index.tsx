@@ -5,15 +5,18 @@ import {
   useConnectionState,
   useRemoteParticipant,
 } from '@livekit/components-react';
+import { Variants } from 'framer-motion';
 import { ConnectionState } from 'livekit-client';
 import { useEffect, useMemo, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
-import { useChatSidebar } from '@/store/use-chat-sidebar';
+import { ChatVariant, useChatSidebar } from '@/store/use-chat-sidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
 import { ChatHeader } from '@/components/stream-player/chat/chat-header';
-import { Variants } from 'framer-motion';
+import { ChatInput } from '@/components/stream-player/chat/chat-input';
+import { ChatList } from '@/components/stream-player/chat/chat-list';
+import { CommunityForm } from '@/components/stream-player/chat/community-form';
 
 interface ChatProps {
   viewerName: string;
@@ -40,7 +43,7 @@ export const Chat = ({
   const participant = useRemoteParticipant(hostId);
 
   const isOnline = participant && connectionState === ConnectionState.Connected;
-  const isHidden = !isChatEnabled || !isOnline || !matches;
+  const isHidden = !isChatEnabled || !isOnline;
 
   // Chat Input
   const [value, setValue] = useState('');
@@ -83,14 +86,44 @@ export const Chat = ({
 
   return (
     <MotionDiv
-      className='flex h-full shrink-0 flex-col overflow-x-hidden border-b 
-      border-l bg-card pt-0 lg:h-[calc(100vh-56px)]'
+      className='flex h-full max-h-[500px] shrink-0 flex-col overflow-x-hidden 
+      border-b border-l bg-card pt-0 lg:h-[calc(100vh-56px)] lg:max-h-full'
       initial={'closed'}
       animate={isExpanded ? 'open' : 'closed'}
       exit={isExpanded ? 'open' : 'closed'}
       variants={variants}
     >
       <ChatHeader />
+      {variant === ChatVariant.CHAT ? (
+        <>
+          <ChatList
+            messages={reveresedMessages}
+            isOffline={!isOnline}
+            isChatDisabled={!isChatEnabled}
+          />
+          <ChatInput
+            onSubmit={onSubmit}
+            value={value}
+            onChange={onChange}
+            isHidden={isHidden}
+            isFollowersOnly={isChatFollowersOnly}
+            isDelayed={isChatDelayed}
+            isFollowing={isFollowing}
+          />
+        </>
+      ) : (
+        <>
+          <CommunityForm
+            onSubmit={onSubmit}
+            value={value}
+            onChange={onChange}
+            isHidden={isHidden}
+            isFollowersOnly={isChatFollowersOnly}
+            isDelayed={isChatDelayed}
+            isFollowing={isFollowing}
+          />
+        </>
+      )}
     </MotionDiv>
   );
 };
