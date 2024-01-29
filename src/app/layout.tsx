@@ -8,7 +8,7 @@ import { Toaster } from 'sonner';
 import './globals.css';
 
 import { cn } from '@/lib/utils';
-import ThemeProvider from '@/providers/ThemeProvider';
+import ThemeProvider from '@/providers/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 

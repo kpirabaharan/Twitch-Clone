@@ -1,7 +1,7 @@
+import { Info } from 'lucide-react';
 import { useMemo } from 'react';
 
 import { Hint } from '@/components/hint';
-import { Info } from 'lucide-react';
 
 interface ChatInfoProps {
   isDelayed: boolean;
