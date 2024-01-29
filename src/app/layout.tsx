@@ -27,12 +27,12 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       }}
     >
       <html lang='en'>
-        <ThemeProvider defaultTheme='system'>
-          <body className={cn('no-scrollbar', inter.className)}>
+        <body className={cn('no-scrollbar', inter.className)}>
+          <ThemeProvider defaultTheme='system'>
             <Toaster richColors theme={'light'} position='bottom-right' />
             {children}
-          </body>
-        </ThemeProvider>
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
