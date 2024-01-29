@@ -26,13 +26,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         variables: { colorPrimary: '#4f46e5' },
       }}
     >
-      <html lang='en'>
-        <ThemeProvider defaultTheme='system'>
-          <body className={cn('no-scrollbar', inter.className)}>
+      <html lang='en' suppressHydrationWarning>
+        <body className={cn('no-scrollbar', inter.className)}>
+          <ThemeProvider defaultTheme='system'>
             <Toaster richColors theme={'light'} position='bottom-right' />
             {children}
-          </body>
-        </ThemeProvider>
+          </ThemeProvider>
+        </body>
       </html>
     </ClerkProvider>
   );
