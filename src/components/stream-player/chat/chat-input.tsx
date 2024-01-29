@@ -60,7 +60,10 @@ export const ChatInput = ({
       onSubmit={handleSubmit}
     >
       <div className='w-full'>
-        <ChatInfo isDelayed={isDelayed} isFollowersOnly={isFollowersOnly} />
+        <ChatInfo
+          isDelayed={isDelayed}
+          isFollowersOnly={isFollowersOnlyAndNotFollowing}
+        />
         <Input
           onChange={handleChange}
           value={value}
@@ -68,7 +71,7 @@ export const ChatInput = ({
           placeholder='Send a message'
           className={cn(
             'border border-white/10',
-            isFollowersOnly && 'rounded-t-none border-t-0',
+            isFollowersOnlyAndNotFollowing && 'rounded-t-none border-t-0',
           )}
         />
       </div>
