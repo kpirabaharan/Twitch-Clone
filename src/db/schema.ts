@@ -106,12 +106,12 @@ export const stream = pgTable(
   'stream',
   {
     id: uuid('id').defaultRandom().primaryKey(),
-    name: text('name').notNull(),
+    title: text('title').notNull(),
+    category: text('category'),
     streamerId: uuid('streamer_id')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     thumbnailUrl: text('thumbnail_url'),
-    game: text('game'),
 
     ingressId: text('ingress_id').unique(),
     serverUrl: text('server_url').unique(),
@@ -137,3 +137,5 @@ export const stream = pgTable(
 export const streamRelations = relations(stream, ({ one }) => ({
   streamer: one(users, { fields: [stream.streamerId], references: [users.id] }),
 }));
+
+// TODO: Create Custom Chat Feature + 2 Models

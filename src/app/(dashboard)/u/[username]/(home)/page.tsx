@@ -15,11 +15,9 @@ const CreatorPage = async ({ params }: CreatorPageProps) => {
     throw new Error('Unauthorized');
   }
 
-  return (
-    <div className='h-full'>
-      {/* <StreamPlayer user={user} stream={stream} isFollowing /> */}
-    </div>
-  );
+  return <div className='h-full'>
+    
+  </div>;
 };
 
 export default CreatorPage;

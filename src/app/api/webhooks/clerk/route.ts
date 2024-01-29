@@ -71,7 +71,7 @@ export const POST = async (req: Request) => {
         .insert(stream)
         .values({
           streamerId: user.id,
-          name: `${username}'s stream`,
+          title: `${username}'s stream`,
         })
         .execute();
 
@@ -92,7 +92,7 @@ export const POST = async (req: Request) => {
 
       await db
         .update(stream)
-        .set({ name: `${username}'s stream` })
+        .set({ title: `${username}'s stream` })
         .where(eq(stream.streamerId, user.id))
         .execute();
 
