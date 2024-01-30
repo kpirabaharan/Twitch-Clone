@@ -134,8 +134,21 @@ export const stream = pgTable(
   },
 );
 
-export const streamRelations = relations(stream, ({ one }) => ({
+export const streamRelations = relations(stream, ({ one, many }) => ({
   streamer: one(users, { fields: [stream.streamerId], references: [users.id] }),
+  chatMessages: many(chat),
 }));
 
-// TODO: Create Custom Chat Feature + 2 Models
+export const chat = pgTable('chat', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  streamId: uuid('stream_id')
+    .notNull()
+    .references(() => stream.id, { onDelete: 'cascade' }),
+  viewerName: text('viewer_name').notNull(),
+  message: text('message').notNull(),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const chatRelations = relations(chat, ({ one }) => ({
+  stream: one(stream, { fields: [chat.streamId], references: [stream.id] }),
+}));

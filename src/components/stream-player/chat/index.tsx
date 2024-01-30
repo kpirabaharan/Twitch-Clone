@@ -10,6 +10,7 @@ import { ConnectionState } from 'livekit-client';
 import { useEffect, useMemo, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
+import { ChatMessage } from '@/db/types';
 import { ChatVariant, useChatSidebar } from '@/store/use-chat-sidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
@@ -22,6 +23,8 @@ interface ChatProps {
   viewerName: string;
   hostName: string;
   hostId: string;
+  streamId: string;
+  messages: ChatMessage[];
   isFollowing: boolean;
   isChatEnabled: boolean;
   isChatDelayed: boolean;
@@ -31,41 +34,29 @@ interface ChatProps {
 export const Chat = ({
   viewerName,
   hostName,
+  messages,
   hostId,
+  streamId,
   isFollowing,
   isChatEnabled,
   isChatDelayed,
   isChatFollowersOnly,
 }: ChatProps) => {
   const matches = useMediaQuery('(min-width: 1024px)');
+
+  // Manage Sidebar State and Variant
   const { variant, isExpanded, onExpand, onCollapse } = useChatSidebar();
+
+  // Check if Stream is Online and Connected
   const connectionState = useConnectionState();
   const participant = useRemoteParticipant(hostId);
 
   const isOnline = participant && connectionState === ConnectionState.Connected;
   const isHidden = !isChatEnabled || !isOnline;
 
-  // Chat Input
-  const [value, setValue] = useState('');
-  const { chatMessages: messages, send } = useChat();
-
   useEffect(() => {
     onExpand();
   }, [matches, onExpand, onCollapse]);
-
-  const reveresedMessages = useMemo(
-    () => messages.sort((a, b) => b.timestamp - a.timestamp),
-    [messages],
-  );
-
-  const onSubmit = () => {
-    if (!send) return;
-
-    send(value);
-    setValue('');
-  };
-
-  const onChange = (value: string) => setValue(value);
 
   const variants: Variants = {
     open: {
@@ -97,14 +88,13 @@ export const Chat = ({
       {variant === ChatVariant.CHAT ? (
         <>
           <ChatList
-            messages={reveresedMessages}
+            messages={messages}
             isOffline={!isOnline}
             isChatDisabled={!isChatEnabled}
           />
           <ChatInput
-            onSubmit={onSubmit}
-            value={value}
-            onChange={onChange}
+            viewerName={viewerName}
+            streamId={streamId}
             isHidden={isHidden}
             isFollowersOnly={isChatFollowersOnly}
             isDelayed={isChatDelayed}
@@ -113,7 +103,7 @@ export const Chat = ({
         </>
       ) : (
         <>
-          <CommunityForm
+          {/* <CommunityForm
             onSubmit={onSubmit}
             value={value}
             onChange={onChange}
@@ -121,7 +111,7 @@ export const Chat = ({
             isFollowersOnly={isChatFollowersOnly}
             isDelayed={isChatDelayed}
             isFollowing={isFollowing}
-          />
+          /> */}
         </>
       )}
     </MotionDiv>

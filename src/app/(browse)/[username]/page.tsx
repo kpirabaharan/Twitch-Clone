@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { isBlockedByUser } from '@/lib/block-service';
+import { getChatByStreamId } from '@/lib/chat-service';
 import { isFollowingUser } from '@/lib/follow-service';
 import { getStreamByUserId } from '@/lib/stream-service';
 import { getUserByUsername } from '@/lib/user-service';
@@ -16,6 +17,8 @@ interface UserPageParams {
 const UserPage = async ({ params }: UserPageParams) => {
   const user = await getUserByUsername(params.username);
   const stream = await getStreamByUserId(user.id);
+  const chatMessages = await getChatByStreamId(stream.id);
+
   const isFollowing = await isFollowingUser(user.id);
   const isBlockedBy = await isBlockedByUser(user.id);
 
@@ -25,7 +28,7 @@ const UserPage = async ({ params }: UserPageParams) => {
 
   return (
     <div className='flex h-full flex-col items-center gap-y-4'>
-      <StreamPlayer user={user} stream={stream} isFollowing={isFollowing} />
+      <StreamPlayer user={user} stream={stream} chatMessages={chatMessages} isFollowing={isFollowing} />
     </div>
   );
 };

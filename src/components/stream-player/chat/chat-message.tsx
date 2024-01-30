@@ -1,24 +1,22 @@
 'use client';
 
-import { type ReceivedChatMessage } from '@livekit/components-react';
 import { format } from 'date-fns';
 
+import { ChatMessage } from '@/db/types';
 import { stringToColor } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
 
-interface ChatMessageProps {
-  data: ReceivedChatMessage;
+interface MessageProps {
+  data: ChatMessage;
 }
 
-export const ChatMessage = ({ data }: ChatMessageProps) => {
-  const router = useRouter();
-  const color = stringToColor(data.from?.name || '');
+export const Message = ({ data }: MessageProps) => {
+  const color = stringToColor(data.viewerName || '');
 
   return (
     <div className='flex gap-2 rounded-md p-2 hover:bg-white/5'>
       <p className='line-clamp-5 text-sm'>
         <span className='py-1 text-white/40'>
-          {format(data.timestamp, 'HH:MM')}{' '}
+          {format(data.createdAt, 'HH:m')}{' '}
         </span>
         <span
           // TODO: Add link to user profile
@@ -26,7 +24,7 @@ export const ChatMessage = ({ data }: ChatMessageProps) => {
           className='cursor-pointer truncate hover:bg-white/10 hover:underline'
           style={{ color: color }}
         >
-          {data.from?.name}
+          {data.viewerName}
         </span>
         <span className='font-light'>: {data.message}</span>
       </p>

@@ -1,12 +1,13 @@
 'use client';
 
-import { type ReceivedChatMessage } from '@livekit/components-react';
-import { ChatMessage } from './chat-message';
+import { ChatMessage } from '@/db/types';
+
+import { Message } from './chat-message';
 
 interface ChatListProps {
   isOffline: boolean;
   isChatDisabled: boolean;
-  messages: ReceivedChatMessage[];
+  messages: ChatMessage[];
 }
 
 export const ChatList = ({
@@ -39,9 +40,9 @@ export const ChatList = ({
   }
 
   return (
-    <div className='flex h-full flex-1 flex-col-reverse overflow-y-auto p-2'>
-      {messages.map((msg, ind) => (
-        <ChatMessage key={msg.timestamp} data={msg} />
+    <div className='no-scrollbar flex h-full flex-1 flex-col-reverse overflow-y-auto p-2'>
+      {messages.map(msg => (
+        <Message key={msg.id} data={msg} />
       ))}
     </div>
   );

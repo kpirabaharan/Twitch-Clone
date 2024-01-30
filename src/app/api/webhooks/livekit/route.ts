@@ -4,7 +4,7 @@ import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 import { db } from '@/db';
-import { stream, users } from '@/db/schema';
+import { chat, stream, users } from '@/db/schema';
 
 const receiver = new WebhookReceiver(
   process.env.LIVEKIT_API_KEY,
@@ -34,10 +34,10 @@ export const POST = async (req: Request) => {
             isLive: true,
           })
           .where(eq(stream.ingressId, event.ingressInfo.ingressId))
-          .returning({ id: stream.streamerId });
+          .returning({ userId: stream.streamerId });
 
         const user = await db.query.users.findFirst({
-          where: eq(users.id, streamer.id),
+          where: eq(users.id, streamer.userId),
         });
 
         if (user) {
@@ -54,11 +54,13 @@ export const POST = async (req: Request) => {
             isLive: false,
           })
           .where(eq(stream.ingressId, event.ingressInfo.ingressId))
-          .returning({ id: stream.streamerId });
+          .returning({ id: stream.id, userId: stream.streamerId });
 
         const user = await db.query.users.findFirst({
-          where: eq(users.id, streamer.id),
+          where: eq(users.id, streamer.userId),
         });
+
+        await db.delete(chat).where(eq(chat.streamId, streamer.id));
 
         if (user) {
           console.log({ livekit_webhook: `${user.username} ended stream` });

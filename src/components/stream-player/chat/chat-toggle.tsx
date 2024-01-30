@@ -2,9 +2,10 @@
 
 import { ArrowLeftFromLine, ArrowRightFromLine } from 'lucide-react';
 
+import { useChatSidebar } from '@/store/use-chat-sidebar';
+
 import { Hint } from '@/components/hint';
 import { Button } from '@/components/ui/button';
-import { useChatSidebar } from '@/store/use-chat-sidebar';
 
 export const ChatToggle = () => {
   const { isExpanded, onExpand, onCollapse } = useChatSidebar();
