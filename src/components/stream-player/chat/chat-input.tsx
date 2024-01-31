@@ -13,8 +13,15 @@ import { useTyping } from '@/store/use-typing';
 
 import { ChatInfo } from '@/components/stream-player/chat/chat-info';
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface ChatInputProps {
   viewerName: string;
@@ -26,7 +33,7 @@ interface ChatInputProps {
 }
 
 const formSchema = z.object({
-  message: z.string().min(1).max(255),
+  message: z.string().min(1, ' ').max(255, 'Message Limit (255 Characters)'),
 });
 
 export const ChatInput = ({
@@ -40,7 +47,7 @@ export const ChatInput = ({
   const router = useRouter();
   const [isDelayBlocked, setIsDelayBlocked] = useState(false);
   const [isPending, startTransition] = useTransition();
-  
+
   // Disable video player actions when typing
   const { onFocus, onBlur } = useTyping();
 
@@ -110,6 +117,7 @@ export const ChatInput = ({
                   }}
                 />
               </FormControl>
+              <FormMessage className='text-red-500' />
             </FormItem>
           )}
         />
@@ -125,5 +133,16 @@ export const ChatInput = ({
         </div>
       </form>
     </Form>
+  );
+};
+
+export const ChatInputSkeleton = () => {
+  return (
+    <div className='flex flex-col items-center gap-y-2 p-2'>
+      <Skeleton className='h-10 w-full' />
+      <div className='ml-auto'>
+        <Skeleton className='h-9 w-16' />
+      </div>
+    </div>
   );
 };

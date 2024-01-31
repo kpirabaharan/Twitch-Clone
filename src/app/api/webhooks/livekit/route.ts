@@ -54,13 +54,15 @@ export const POST = async (req: Request) => {
             isLive: false,
           })
           .where(eq(stream.ingressId, event.ingressInfo.ingressId))
-          .returning({ id: stream.id, userId: stream.streamerId });
+          .returning();
 
         const user = await db.query.users.findFirst({
-          where: eq(users.id, streamer.userId),
+          where: eq(users.id, streamer.streamerId),
         });
 
-        await db.delete(chat).where(eq(chat.streamId, streamer.id));
+        if (streamer.isChatRefreshed) {
+          await db.delete(chat).where(eq(chat.streamId, streamer.id));
+        }
 
         if (user) {
           console.log({ livekit_webhook: `${user.username} ended stream` });

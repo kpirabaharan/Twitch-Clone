@@ -1,4 +1,5 @@
 export type StreamProperties =
   | 'isChatEnabled'
   | 'isChatDelayed'
-  | 'isChatFollowersOnly';
+  | 'isChatFollowersOnly'
+  | 'isChatRefreshed';

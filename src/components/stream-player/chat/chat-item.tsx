@@ -5,18 +5,18 @@ import { format } from 'date-fns';
 import { ChatMessage } from '@/db/types';
 import { stringToColor } from '@/lib/utils';
 
-interface MessageProps {
+interface ChatItemProps {
   data: ChatMessage;
 }
 
-export const Message = ({ data }: MessageProps) => {
+export const ChatItem = ({ data }: ChatItemProps) => {
   const color = stringToColor(data.viewerName || '');
 
   return (
     <div className='flex gap-2 rounded-md p-2 hover:bg-white/5'>
       <p className='line-clamp-5 text-sm'>
         <span className='py-1 text-white/40'>
-          {format(data.createdAt, 'HH:m')}{' '}
+          {format(data.createdAt, 'HH:mm')}{' '}
         </span>
         <span
           // TODO: Add link to user profile

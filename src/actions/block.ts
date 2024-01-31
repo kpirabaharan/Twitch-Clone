@@ -17,7 +17,8 @@ export const onBlock = async (id: string) => {
     }
 
     return blockedUser;
-  } catch (err) {
+  } catch (err: any) {
+    console.log(err.message);
     throw new Error('Something went wrong!');
   }
 };
@@ -34,7 +35,8 @@ export const onUnblock = async (id: string) => {
     }
 
     return unBlockedUser;
-  } catch (err) {
+  } catch (err: any) {
+    console.log(err.message);
     throw new Error('Something went wrong!');
   }
 };

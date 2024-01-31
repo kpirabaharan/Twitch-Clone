@@ -20,7 +20,7 @@ const StreamPage = async ({ params }: StreamPageProps) => {
   }
 
   return (
-    <div className='relative h-full'>
+    <div className='relative h-full overflow-x-hidden'>
       <StreamPlayer user={user} stream={stream} chatMessages={chatMessages} isFollowing />
     </div>
   );

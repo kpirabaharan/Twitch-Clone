@@ -123,6 +123,7 @@ export const stream = pgTable(
     isChatFollowersOnly: boolean('is_chat_followers_only')
       .default(false)
       .notNull(),
+    isChatRefreshed: boolean('is_chat_refreshed').default(false).notNull(),
 
     createdAt: timestamp('created_at').defaultNow().notNull(),
   },

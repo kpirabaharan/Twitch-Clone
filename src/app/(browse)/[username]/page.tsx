@@ -27,8 +27,13 @@ const UserPage = async ({ params }: UserPageParams) => {
   }
 
   return (
-    <div className='flex h-full flex-col items-center gap-y-4'>
-      <StreamPlayer user={user} stream={stream} chatMessages={chatMessages} isFollowing={isFollowing} />
+    <div className='relative h-full overflow-x-hidden'>
+      <StreamPlayer
+        user={user}
+        stream={stream}
+        chatMessages={chatMessages}
+        isFollowing={isFollowing}
+      />
     </div>
   );
 };

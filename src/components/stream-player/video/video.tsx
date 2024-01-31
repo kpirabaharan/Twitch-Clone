@@ -5,9 +5,10 @@ import {
 } from '@livekit/components-react';
 import { ConnectionState, Track } from 'livekit-client';
 
-import { LiveVideo } from './live-video';
-import { LoadingVideo } from './loading-video';
-import { OfflineVideo } from './offline-video';
+import { LiveVideo } from '@/components/stream-player/video/live-video';
+import { LoadingVideo } from '@/components/stream-player/video/loading-video';
+import { OfflineVideo } from '@/components/stream-player/video/offline-video';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface VideoProps {
   hostName: string;
@@ -35,9 +36,17 @@ export const Video = ({ hostName, hostId }: VideoProps) => {
   return (
     <div
       className='group relative aspect-video shrink border-b 
-      lg:max-h-[calc(100vh-56px)]'
+      border-background lg:max-h-[calc(100vh-56px)]'
     >
       {content}
+    </div>
+  );
+};
+
+export const VideoSkeleton = () => {
+  return (
+    <div className='aspect-video shrink border-b border-background'>
+      <Skeleton className='h-full w-full rounded-none' />
     </div>
   );
 };

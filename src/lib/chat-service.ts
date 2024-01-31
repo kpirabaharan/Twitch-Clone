@@ -1,4 +1,4 @@
-import { desc, eq } from 'drizzle-orm';
+import { asc, eq } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { chat, stream } from '@/db/schema';
@@ -15,7 +15,7 @@ export const getChatByStreamId = async (id: string) => {
 
     const chatMessages = await db.query.chat.findMany({
       where: eq(chat.streamId, id),
-      orderBy: [desc(chat.createdAt)],
+      orderBy: [asc(chat.createdAt)],
     });
 
     if (!chatMessages) {

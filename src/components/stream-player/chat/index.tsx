@@ -1,23 +1,31 @@
 'use client';
 
 import {
-  useChat,
   useConnectionState,
   useRemoteParticipant,
 } from '@livekit/components-react';
 import { Variants } from 'framer-motion';
 import { ConnectionState } from 'livekit-client';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { ChatMessage } from '@/db/types';
 import { ChatVariant, useChatSidebar } from '@/store/use-chat-sidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
-import { ChatHeader } from '@/components/stream-player/chat/chat-header';
-import { ChatInput } from '@/components/stream-player/chat/chat-input';
-import { ChatList } from '@/components/stream-player/chat/chat-list';
-import { CommunityForm } from '@/components/stream-player/chat/community-form';
+import {
+  ChatHeader,
+  ChatHeaderSkeleton,
+} from '@/components/stream-player/chat/chat-header';
+import {
+  ChatInput,
+  ChatInputSkeleton,
+} from '@/components/stream-player/chat/chat-input';
+import {
+  ChatList,
+  ChatListSkeleton,
+} from '@/components/stream-player/chat/chat-list';
+import { CommunityList } from '@/components/stream-player/chat/community-list';
 
 interface ChatProps {
   viewerName: string;
@@ -79,7 +87,7 @@ export const Chat = ({
     <MotionDiv
       className='flex h-full max-h-[500px] shrink-0 flex-col overflow-x-hidden 
       border-b border-l bg-card pt-0 lg:h-[calc(100vh-56px)] lg:max-h-full'
-      initial={'closed'}
+      initial={'open'}
       animate={isExpanded ? 'open' : 'closed'}
       exit={isExpanded ? 'open' : 'closed'}
       variants={variants}
@@ -103,17 +111,26 @@ export const Chat = ({
         </>
       ) : (
         <>
-          {/* <CommunityForm
-            onSubmit={onSubmit}
-            value={value}
-            onChange={onChange}
+          <CommunityList
+            hostName={hostName}
+            viewerName={viewerName}
             isHidden={isHidden}
-            isFollowersOnly={isChatFollowersOnly}
-            isDelayed={isChatDelayed}
-            isFollowing={isFollowing}
-          /> */}
+          />
         </>
       )}
     </MotionDiv>
+  );
+};
+
+export const ChatSkeleton = () => {
+  return (
+    <div
+      className='flex h-full max-h-[500px] w-full shrink-0 flex-col overflow-x-hidden 
+      border-b border-l pt-0 lg:h-[calc(100vh-56px)] lg:max-h-full lg:w-[300px]'
+    >
+      <ChatHeaderSkeleton />
+      <ChatListSkeleton />
+      <ChatInputSkeleton />
+    </div>
   );
 };

@@ -8,9 +8,9 @@ import { useViewerToken } from '@/hooks/use-viewer-token';
 import { useChatSidebar } from '@/store/use-chat-sidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
-import { Chat } from '@/components/stream-player/chat';
+import { Chat, ChatSkeleton } from '@/components/stream-player/chat';
 import { ChatToggle } from '@/components/stream-player/chat/chat-toggle';
-import { Video } from '@/components/stream-player/video/video';
+import { Video, VideoSkeleton } from '@/components/stream-player/video/video';
 
 interface StreamPlayerProps {
   user: User;
@@ -44,7 +44,7 @@ export const StreamPlayer = ({
   };
 
   if (!viewerToken || !identity || !name) {
-    return <div></div>;
+    return <StreamPlayerSkeleton />;
   }
 
   return (
@@ -79,5 +79,16 @@ export const StreamPlayer = ({
         />
       </LiveKitRoom>
     </>
+  );
+};
+
+export const StreamPlayerSkeleton = () => {
+  return (
+    <div className='flex h-full w-full flex-col lg:flex-row'>
+      <div className='w-full'>
+        <VideoSkeleton />
+      </div>
+      <ChatSkeleton />
+    </div>
   );
 };

@@ -31,6 +31,11 @@ const ChatPage = async () => {
           label={'Follower Only Chat'}
           value={stream.isChatFollowersOnly}
         />
+        <ToggleCard
+          field={'isChatRefreshed'}
+          label={'Refresh Chat on New Stream'}
+          value={stream.isChatRefreshed}
+        />
       </div>
     </div>
   );
