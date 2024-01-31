@@ -27,9 +27,20 @@ export const LiveVideo = ({ participant }: LiveVideoProps) => {
 
   return (
     <div ref={wrapperRef} className='relative flex h-full'>
-      <video ref={videoRef} width={'100%'} />
-      <div className='absolute bottom-0 w-full opacity-0 group-hover:opacity-100'>
-        <div className='flex h-12 w-full justify-between bg-black/50 px-2'>
+      <video className='shadow-inner-upper' ref={videoRef} width={'100%'} />
+      {/* VIDEO SHADOW */}
+      <div className='shadow-inner-xl absolute left-0 top-0 h-full w-full opacity-0 group-hover:opacity-100' />
+
+      {/* LIVE TEXT */}
+      <div className='absolute right-4 top-2 z-10 opacity-0 group-hover:opacity-100'>
+        <div className='inline-flex bg-red-700 px-1 rounded-sm'>
+          <p className='text-xs uppercase font-semibold'>Live</p>
+        </div>
+      </div>
+
+      {/* CONTROLS */}
+      <div className='absolute bottom-0 z-10 w-full opacity-0 group-hover:opacity-100'>
+        <div className='flex h-12 w-full justify-between px-2'>
           <VolumeControl
             volume={volume}
             onToggle={toggleMute}

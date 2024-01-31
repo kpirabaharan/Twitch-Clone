@@ -10,6 +10,7 @@ import { useChatSidebar } from '@/store/use-chat-sidebar';
 import { MotionDiv } from '@/components/framer/motion-div';
 import { Chat, ChatSkeleton } from '@/components/stream-player/chat';
 import { ChatToggle } from '@/components/stream-player/chat/chat-toggle';
+import { StreamHeader } from '@/components/stream-player/header/stream-header';
 import { Video, VideoSkeleton } from '@/components/stream-player/video/video';
 
 interface StreamPlayerProps {
@@ -65,6 +66,7 @@ export const StreamPlayer = ({
       >
         <div className='w-full'>
           <Video hostName={user.username} hostId={user.id} />
+          <StreamHeader />
         </div>
         <Chat
           hostId={user.id}

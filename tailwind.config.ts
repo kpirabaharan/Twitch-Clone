@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      boxShadow: {
+        'inner-xl': '0px 0px 64px 24px rgba(0, 0, 0, 0.75) inset',
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
