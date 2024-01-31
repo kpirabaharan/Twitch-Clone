@@ -1,7 +1,9 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import qs from 'query-string';
 import { useState, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -65,14 +67,31 @@ export const ChatInput = ({
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     startTransition(async () => {
       try {
+        const url = qs.stringifyUrl({
+          url: '/api/socket/messages',
+          query: { streamId },
+        });
+
         if (isDelayed && !isDelayBlocked) {
+          // SEND MESSAGE AFTER 3 SECONDS
           setIsDelayBlocked(true);
           setTimeout(async () => {
             setIsDelayBlocked(false);
-            await sendMessage({ ...values, viewerName, streamId });
+            // SERVER ACTION
+            // await sendMessage({ ...values, viewerName, streamId });
+            const response = await axios.post(url, {
+              ...values,
+              viewerName,
+            });
           }, 3000);
         } else {
-          await sendMessage({ ...values, viewerName, streamId });
+          // SEND MESSAGE IMMEDIATELY
+          // SERVER ACTION
+          // await sendMessage({ ...values, viewerName, streamId });
+          const response = await axios.post(url, {
+            ...values,
+            viewerName,
+          });
         }
       } catch (err: any) {
         toast.error('Failed to send message');

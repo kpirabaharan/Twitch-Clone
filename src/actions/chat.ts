@@ -17,6 +17,7 @@ export const sendMessage = async ({
   viewerName,
   message,
 }: ChatMessageInput) => {
+  //! IF TO USE AGAIN CHANGE STREAMID TO A QUERIED PARAM
   try {
     const userStream = await db.query.stream.findFirst({
       where: eq(stream.id, streamId),
