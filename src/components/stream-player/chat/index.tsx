@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 import { ChatMessage } from '@/db/types';
+import { useChatSocket } from '@/hooks/use-chat-socket';
 import { ChatVariant, useChatSidebar } from '@/store/use-chat-sidebar';
 
 import { MotionDiv } from '@/components/framer/motion-div';
@@ -51,6 +52,10 @@ export const Chat = ({
   isChatFollowersOnly,
 }: ChatProps) => {
   const matches = useMediaQuery('(min-width: 1024px)');
+  // const chatMessages = useChat({ apiUrl: '/api/messages' });
+  console.log({ streamId });
+  const event = `stream-${streamId}`;
+  useChatSocket({ event });
 
   // Manage Sidebar State and Variant
   const { variant, isExpanded, onExpand, onCollapse } = useChatSidebar();

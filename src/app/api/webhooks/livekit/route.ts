@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server';
 
 import { db } from '@/db';
 import { chat, stream, users } from '@/db/schema';
+import { revalidatePath } from 'next/cache';
 
 const receiver = new WebhookReceiver(
   process.env.LIVEKIT_API_KEY,
@@ -42,6 +43,7 @@ export const POST = async (req: Request) => {
 
         if (user) {
           console.log({ livekit_webhook: `${user.username} went live` });
+          revalidatePath(`/${user.username}`);
         }
       }
       break;

@@ -42,6 +42,7 @@ export const updateStream = async (values: Partial<Stream>) => {
       .returning();
 
     revalidatePath(`/u/${self.username}`, 'layout');
+    revalidatePath(`${self.username}`);
     return { updatedStream, message: 'Chat settings updated' };
   } catch (err) {
     throw new Error('Something went wrong!');
