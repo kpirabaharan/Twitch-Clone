@@ -13,7 +13,7 @@ export const getRecommended = async () => {
 
   if (!self) {
     recommended = await db.query.users.findMany({
-      // TODO: Uncomment Code Below
+      // TODO: Uncomment Code Below to Enable Recommending Live Streamers
       // where: inArray(
       //   users.id,
       //   db

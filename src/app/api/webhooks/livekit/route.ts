@@ -43,6 +43,7 @@ export const POST = async (req: Request) => {
 
         if (user) {
           console.log({ livekit_webhook: `${user.username} went live` });
+          revalidatePath(`/`);
           revalidatePath(`/${user.username}`);
         }
       }
@@ -68,6 +69,8 @@ export const POST = async (req: Request) => {
 
         if (user) {
           console.log({ livekit_webhook: `${user.username} ended stream` });
+          revalidatePath(`/`);
+          revalidatePath(`/${user.username}`);
         }
       }
       break;

@@ -2,7 +2,7 @@
 
 import { useParticipants } from '@livekit/components-react';
 import { useMemo, useState } from 'react';
-import { useDebounce } from 'usehooks-ts';
+import { useDebounceValue } from 'usehooks-ts';
 
 import { useTyping } from '@/store/use-typing';
 
@@ -23,7 +23,7 @@ export const CommunityList = ({
   isHidden,
 }: CommunityListProps) => {
   const [value, setValue] = useState('');
-  const debouncedValue = useDebounce(value, 500);
+  const [debouncedValue, _] = useDebounceValue(value, 500);
   const { onFocus, onBlur } = useTyping();
 
   // Get Participants of the Stream
