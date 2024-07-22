@@ -4,12 +4,14 @@ import { ClapperboardIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
+import { SocketStatus } from './socket-status';
 
 export const Actions = async () => {
   const user = await currentUser();
 
   return (
     <div className='flex flex-row items-center justify-end gap-x-2'>
+      <SocketStatus />
       {!!user && (
         <Button variant={'outline'} size={'sm'} asChild>
           <Link href={`/u/${user.username}`}>
@@ -25,7 +27,7 @@ export const Actions = async () => {
           </Button>
         </SignInButton>
       )}
-      {!!user && <UserButton afterSignOutUrl='/' />}
+      {!!user && <UserButton />}
     </div>
   );
 };

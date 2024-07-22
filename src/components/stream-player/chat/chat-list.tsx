@@ -23,8 +23,9 @@ export const ChatList = ({
   isOffline,
   isChatDisabled,
 }: ChatListProps) => {
-  const divRef = useRef<HTMLDivElement>(null);
-  const ref = useIntersectionObserver(divRef, { threshold: 0.5 });
+  const { isIntersecting, ref } = useIntersectionObserver({
+    threshold: 0.5,
+  });
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useChatQuery({
@@ -36,10 +37,10 @@ export const ChatList = ({
   useChatSocket({ addKey, queryKey: streamId });
 
   useEffect(() => {
-    if (hasNextPage) {
+    if (hasNextPage && isIntersecting) {
       fetchNextPage();
     }
-  }, [ref, fetchNextPage, hasNextPage]);
+  }, [isIntersecting, fetchNextPage, hasNextPage]);
 
   let message;
   switch (true) {
@@ -78,8 +79,12 @@ export const ChatList = ({
 
   return (
     <ScrollArea className='flex-1 p-2'>
-      {isFetchingNextPage && <SyncLoader color={'#4F46E5'} />}
-      {hasNextPage && <div ref={divRef} />}
+      {isFetchingNextPage && (
+        <div className='flex justify-center'>
+          <SyncLoader color={'#4F46E5'} size={16} />
+        </div>
+      )}
+      {hasNextPage && <div ref={ref} />}
       <div className='flex flex-col-reverse'>
         {data?.pages?.map((group, i) => (
           <Fragment key={i}>
